@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_app/features/auth/presentation/screens/sign_in_screen.dart';
+import 'package:instagram_app/features/auth/presentation/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Instagram App',
-      theme: ThemeData.dark(),
-      home: const SingInScreen(),
+      theme: ThemeData.dark(
+        useMaterial3: true,
+      ),
+      home: const MainScreen(),
     );
   }
 }
