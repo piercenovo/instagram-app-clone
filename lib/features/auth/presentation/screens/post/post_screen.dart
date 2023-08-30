@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 
 class PostScreen extends StatelessWidget {
@@ -6,12 +7,23 @@ class PostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: tBackGroundColor,
       body: Center(
-        child: Text(
-          'Post',
-          style: TextStyle(color: tPrimaryColor),
+        child: Container(
+          width: 150,
+          height: 150,
+          decoration: BoxDecoration(
+            color: tSecondaryColor.withOpacity(0.3),
+            shape: BoxShape.circle,
+          ),
+          child: const Center(
+            child: Icon(
+              Iconsax.document_upload,
+              color: tPrimaryColor,
+              size: 40,
+            ),
+          ),
         ),
       ),
     );
