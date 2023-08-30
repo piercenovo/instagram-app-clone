@@ -4,7 +4,7 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/image_strings.dart';
 import 'package:instagram_app/core/utils/strings/text_strings.dart';
-import 'package:instagram_app/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:instagram_app/features/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import 'package:instagram_app/features/auth/presentation/widgets/button_container_widget.dart';
 import 'package:instagram_app/features/auth/presentation/widgets/form_container_widget.dart';
 
