@@ -6,10 +6,11 @@ class ActivityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: tBackGroundColor,
-      body: Center(
-        child: Text(
+      appBar: AppBar(
+        backgroundColor: tBackGroundColor,
+        title: const Text(
           'Activity',
           style: TextStyle(color: tPrimaryColor),
         ),

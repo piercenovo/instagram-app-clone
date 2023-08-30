@@ -52,16 +52,20 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: tBackGroundColor,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Iconsax.home, color: tPrimaryColor, size: 24)),
+            icon: Icon(Iconsax.home, color: tPrimaryColor, size: 24),
+          ),
           BottomNavigationBarItem(
-              icon:
-                  Icon(Iconsax.search_normal, color: tPrimaryColor, size: 24)),
+            icon: Icon(Iconsax.search_normal, color: tPrimaryColor, size: 24),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Iconsax.add, color: tPrimaryColor, size: 24)),
+            icon: Icon(Iconsax.add, color: tPrimaryColor, size: 24),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Iconsax.heart, color: tPrimaryColor, size: 24)),
+            icon: Icon(Iconsax.heart, color: tPrimaryColor, size: 24),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Iconsax.user, color: tPrimaryColor, size: 24)),
+            icon: Icon(Iconsax.user, color: tPrimaryColor, size: 24),
+          ),
         ],
         onTap: navigationTapped,
       ),
