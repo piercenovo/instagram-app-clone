@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/core/utils/theme/theme.dart';
 import 'package:instagram_app/features/auth/presentation/screens/main/main_screen.dart';
 
 void main() {
@@ -13,9 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Instagram App',
-      theme: ThemeData.dark(
-        useMaterial3: true,
-      ),
+      theme: theme(),
+      darkTheme: ThemeData.dark(),
       home: const MainScreen(),
     );
   }
