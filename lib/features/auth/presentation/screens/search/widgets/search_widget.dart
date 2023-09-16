@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 
 class SearchWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class SearchWidget extends StatelessWidget {
         style: const TextStyle(color: tPrimaryColor),
         decoration: const InputDecoration(
           border: InputBorder.none,
-          prefixIcon: Icon(Iconsax.search_normal),
+          prefixIcon: Icon(Boxicons.bx_search, color: tSecondaryColor),
           hintText: 'Search',
           hintStyle: TextStyle(color: tSecondaryColor, fontSize: 15),
         ),

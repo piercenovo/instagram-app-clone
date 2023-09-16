@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 
 class PostScreen extends StatelessWidget {
@@ -18,11 +18,7 @@ class PostScreen extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: const Center(
-            child: Icon(
-              Iconsax.document_upload,
-              color: tPrimaryColor,
-              size: 40,
-            ),
+            child: Icon(Boxicons.bx_upload, color: tPrimaryColor, size: 40),
           ),
         ),
       ),

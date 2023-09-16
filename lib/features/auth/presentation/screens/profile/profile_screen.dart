@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 
@@ -16,10 +16,12 @@ class ProfileScreen extends StatelessWidget {
           'Username',
           style: TextStyle(color: tPrimaryColor),
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: Icon(Iconsax.menu_1, color: tPrimaryColor),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _openBottomModalSheet(context);
+            },
+            icon: const Icon(Boxicons.bx_menu, color: tPrimaryColor),
           ),
         ],
       ),
@@ -124,6 +126,99 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  _openBottomModalSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      clipBehavior: Clip.hardEdge,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          color: tBackGroundColor.withOpacity(0.9),
+          padding: const EdgeInsets.only(
+            top: 16,
+            bottom: 16,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: tDarkGreyColor,
+                  ),
+                ),
+              ),
+              sizeVer(10),
+              Column(
+                children: [
+                  ListTile(
+                    minVerticalPadding: 1,
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_grid_alt,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'More options',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_edit,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Edit profile',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_log_out,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Log out',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

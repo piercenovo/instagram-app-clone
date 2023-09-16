@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/image_strings.dart';
@@ -21,10 +21,10 @@ class HomeScreen extends StatelessWidget {
           colorFilter: const ColorFilter.mode(tPrimaryColor, BlendMode.srcIn),
           height: 32,
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 10.0),
-            child: Icon(Iconsax.message, color: tPrimaryColor),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Boxicons.bxl_messenger, color: tPrimaryColor),
           )
         ],
       ),
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  const Icon(Iconsax.more, color: tPrimaryColor)
+                  const Icon(Boxicons.bx_dots_horizontal, color: tPrimaryColor)
                 ],
               ),
             ),
@@ -74,18 +74,28 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Iconsax.heart, color: tPrimaryColor),
+                      const Icon(Boxicons.bx_heart, color: tPrimaryColor),
                       sizeHor(10.0),
-                      const Icon(Iconsax.message_2, color: tPrimaryColor),
+                      const Icon(Boxicons.bx_message_square_detail,
+                          color: tPrimaryColor),
                       sizeHor(10.0),
-                      const Icon(Iconsax.send_2, color: tPrimaryColor),
+                      const Icon(Boxicons.bx_send, color: tPrimaryColor),
                     ],
                   ),
-                  const Icon(Iconsax.archive_1, color: tPrimaryColor),
+                  const Icon(Boxicons.bx_bookmark, color: tPrimaryColor),
                 ],
               ),
             ),
             sizeVer(10.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                '34 likes',
+                style: TextStyle(
+                    color: tPrimaryColor, fontWeight: FontWeight.bold),
+              ),
+            ),
+            sizeVer(5.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(

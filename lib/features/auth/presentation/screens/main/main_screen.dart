@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/features/auth/presentation/screens/activity/activity_screen.dart';
 import 'package:instagram_app/features/auth/presentation/screens/home/home_screen.dart';
@@ -52,19 +52,19 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: tBackGroundColor,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.home, color: tPrimaryColor, size: 24),
+            icon: Icon(Boxicons.bx_home_smile, color: tPrimaryColor),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.search_normal, color: tPrimaryColor, size: 24),
+            icon: Icon(Boxicons.bx_search, color: tPrimaryColor),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.add, color: tPrimaryColor, size: 24),
+            icon: Icon(Boxicons.bx_plus, color: tPrimaryColor),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.heart, color: tPrimaryColor, size: 24),
+            icon: Icon(Boxicons.bx_heart, color: tPrimaryColor),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.user, color: tPrimaryColor, size: 24),
+            icon: Icon(Boxicons.bx_user, color: tPrimaryColor),
           ),
         ],
         onTap: navigationTapped,
