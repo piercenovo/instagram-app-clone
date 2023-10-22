@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
-import 'package:instagram_app/features/auth/presentation/screens/search/widgets/search_widget.dart';
+import 'package:instagram_app/features/search/presentation/screens/search/widgets/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

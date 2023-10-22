@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/image_strings.dart';
+import 'package:instagram_app/features/home/presentation/screens/comment/comment_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -76,8 +78,13 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       const Icon(Boxicons.bx_heart, color: tPrimaryColor),
                       sizeHor(10.0),
-                      const Icon(Boxicons.bx_message_square_detail,
-                          color: tPrimaryColor),
+                      GestureDetector(
+                        onTap: () {
+                          pushToPage(context, const CommentScreen());
+                        },
+                        child: const Icon(Boxicons.bx_message_square_detail,
+                            color: tPrimaryColor),
+                      ),
                       sizeHor(10.0),
                       const Icon(Boxicons.bx_send, color: tPrimaryColor),
                     ],

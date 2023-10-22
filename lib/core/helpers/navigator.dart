@@ -7,3 +7,11 @@ void pushToPage(BuildContext context, Widget route) {
 void popBack(BuildContext context) {
   Navigator.pop(context);
 }
+
+void pushAndRemoveUntilToPage(BuildContext context, Widget route) {
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => route),
+    (route) => false,
+  );
+}

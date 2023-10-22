@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/core/utils/theme/theme.dart';
-import 'package:instagram_app/features/auth/presentation/screens/main/main_screen.dart';
+import 'package:instagram_app/features/home/presentation/screens/main/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
