@@ -5,7 +5,8 @@ import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/image_strings.dart';
-import 'package:instagram_app/features/home/presentation/screens/comment/comment_screen.dart';
+import 'package:instagram_app/features/post/presentation/screens/comment/comment_screen.dart';
+import 'package:instagram_app/features/post/presentation/screens/update_post/update_post_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -58,7 +59,13 @@ class HomeScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  const Icon(Boxicons.bx_dots_horizontal, color: tPrimaryColor)
+                  GestureDetector(
+                    onTap: () {
+                      _openBottomModalSheet(context);
+                    },
+                    child: const Icon(Boxicons.bx_dots_horizontal,
+                        color: tPrimaryColor),
+                  ),
                 ],
               ),
             ),
@@ -141,6 +148,100 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  _openBottomModalSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      clipBehavior: Clip.hardEdge,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          color: tBackGroundColor.withOpacity(0.9),
+          padding: const EdgeInsets.only(
+            top: 16,
+            bottom: 16,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: tDarkGreyColor,
+                  ),
+                ),
+              ),
+              sizeVer(10),
+              Column(
+                children: [
+                  ListTile(
+                    minVerticalPadding: 1,
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_grid_alt,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'More options',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_edit,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Delete post',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_log_out,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Update Post',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      pushToPage(context, const UpdatePostScreen());
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

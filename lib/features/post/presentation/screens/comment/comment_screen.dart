@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
-import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/auth/presentation/widgets/form_container_widget.dart';
@@ -21,12 +20,6 @@ class _CommentScreenState extends State<CommentScreen> {
       backgroundColor: tBackGroundColor,
       appBar: AppBar(
         backgroundColor: tBackGroundColor,
-        leading: IconButton(
-          onPressed: () {
-            popBack(context);
-          },
-          icon: const Icon(Boxicons.bx_arrow_back, color: tPrimaryColor),
-        ),
         title: const Text('Comments'),
       ),
       body: Column(
