@@ -183,30 +183,12 @@ class HomePage extends StatelessWidget {
               Column(
                 children: [
                   ListTile(
-                    minVerticalPadding: 1,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Boxicons.bx_grid_alt,
-                            color: tPrimaryColor, size: 20),
-                        sizeHor(10),
-                        const Text(
-                          'More options',
-                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(Boxicons.bx_edit,
+                        const Icon(Boxicons.bx_message_alt_x,
                             color: tPrimaryColor, size: 20),
                         sizeHor(10),
                         const Text(
@@ -222,7 +204,7 @@ class HomePage extends StatelessWidget {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Boxicons.bx_log_out,
+                        const Icon(Boxicons.bx_message_detail,
                             color: tPrimaryColor, size: 20),
                         sizeHor(10),
                         const Text(

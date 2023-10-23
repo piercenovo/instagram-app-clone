@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/profile/presentation/screens/profile/widgets/profile_form_widget.dart';
@@ -13,7 +14,16 @@ class UpdatePostPage extends StatelessWidget {
       backgroundColor: tBackGroundColor,
       appBar: AppBar(
         backgroundColor: tBackGroundColor,
-        title: const Text('Edit Post'),
+        title: const Text(
+          'Edit Post',
+          style: TextStyle(color: tPrimaryColor),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            popBack(context);
+          },
+          icon: const Icon(Boxicons.bx_arrow_back, color: tPrimaryColor),
+        ),
         actions: [
           IconButton(
             onPressed: () {},

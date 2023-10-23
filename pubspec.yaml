@@ -9,9 +9,39 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+
+  # state management
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.3
+
+  # firebase
+  cloud_firestore: ^4.11.0
+  firebase_auth: ^4.11.1
+  firebase_core: ^2.19.0
+  firebase_storage: ^11.3.1
+
+  #service locator
+  get_it: ^7.6.4
+
+  # image handling
+  cached_network_image: ^3.3.0
+  image_picker: ^1.0.4
+
+  # icons and desig
   flutter_boxicons: ^3.0.0
   flutter_svg: ^2.0.7
-  iconsax: ^0.0.8
+
+  # internationalization
+  intl: ^0.18.1
+
+  # toast messages
+  fluttertoast: ^8.2.2
+
+  # modal sheets
+  modal_bottom_sheet: ^2.1.2
+
+  # uuid generation
+  uuid: ^4.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

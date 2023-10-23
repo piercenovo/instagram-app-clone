@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/core/helpers/on_generate_route.dart';
 import 'package:instagram_app/core/utils/theme/theme.dart';
-import 'package:instagram_app/features/auth/presentation/pages/sign_in/sign_in_page.dart';
+import 'package:instagram_app/features/home/presentation/pages/main/main_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) {
-          return const SignInPage();
+          return const MainPage();
         }
       },
     );
