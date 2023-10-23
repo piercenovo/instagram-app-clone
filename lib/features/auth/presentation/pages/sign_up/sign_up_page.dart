@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
+import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/image_strings.dart';
 import 'package:instagram_app/core/utils/strings/text_strings.dart';
-import 'package:instagram_app/features/auth/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:instagram_app/features/auth/presentation/widgets/button_container_widget.dart';
 import 'package:instagram_app/features/auth/presentation/widgets/form_container_widget.dart';
 
-class SingUpScreen extends StatelessWidget {
-  const SingUpScreen({super.key});
+class SingUpPage extends StatelessWidget {
+  const SingUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +101,8 @@ class SingUpScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SingInScreen()),
-                      (route) => false,
-                    );
+                    pushNamedAndRemoveUntilToPage(
+                        context, PageConst.signInPage);
                   },
                   child: const Text(
                     tSignInTitle,

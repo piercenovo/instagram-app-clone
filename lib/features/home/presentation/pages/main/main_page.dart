@@ -4,20 +4,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
-import 'package:instagram_app/features/activity/presentation/screens/activity/activity_screen.dart';
-import 'package:instagram_app/features/post/presentation/screens/post/post_screen.dart';
-import 'package:instagram_app/features/profile/presentation/screens/profile/profile_screen.dart';
-import 'package:instagram_app/features/search/presentation/screens/search/search_screen.dart';
-import 'package:instagram_app/features/home/presentation/screens/home/home_screen.dart';
+import 'package:instagram_app/features/activity/presentation/pages/activity/activity_page.dart';
+import 'package:instagram_app/features/post/presentation/pages/post/post_page.dart';
+import 'package:instagram_app/features/profile/presentation/screens/profile/profile_page.dart';
+import 'package:instagram_app/features/search/presentation/screens/search/search_page.dart';
+import 'package:instagram_app/features/home/presentation/pages/home/home_page.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   late PageController pageController;
@@ -73,11 +73,11 @@ class _MainScreenState extends State<MainScreen> {
         controller: pageController,
         onPageChanged: onPageChanged,
         children: const [
-          HomeScreen(),
-          SearchScreen(),
-          PostScreen(),
-          ActivityScreen(),
-          ProfileScreen(),
+          HomePage(),
+          SearchPage(),
+          PostPage(),
+          ActivityPage(),
+          ProfilePage(),
         ],
       ),
     );

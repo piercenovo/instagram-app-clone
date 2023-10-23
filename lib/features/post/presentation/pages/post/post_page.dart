@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 
-class PostScreen extends StatelessWidget {
-  const PostScreen({super.key});
+class PostPage extends StatelessWidget {
+  const PostPage({super.key});
 
   @override
   Widget build(BuildContext context) {

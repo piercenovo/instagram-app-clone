@@ -4,14 +4,14 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/auth/presentation/widgets/form_container_widget.dart';
 
-class CommentScreen extends StatefulWidget {
-  const CommentScreen({super.key});
+class CommentPage extends StatefulWidget {
+  const CommentPage({super.key});
 
   @override
-  State<CommentScreen> createState() => _CommentScreenState();
+  State<CommentPage> createState() => _CommentPageState();
 }
 
-class _CommentScreenState extends State<CommentScreen> {
+class _CommentPageState extends State<CommentPage> {
   bool _isUserReplaying = false;
 
   @override

@@ -3,14 +3,14 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/search/presentation/screens/search/widgets/search_widget.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
 
   @override

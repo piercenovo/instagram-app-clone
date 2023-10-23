@@ -5,8 +5,8 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/profile/presentation/screens/profile/widgets/profile_form_widget.dart';
 
-class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
+class EditProfilePage extends StatelessWidget {
+  const EditProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,13 +3,12 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
+import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/image_strings.dart';
-import 'package:instagram_app/features/post/presentation/screens/comment/comment_screen.dart';
-import 'package:instagram_app/features/post/presentation/screens/update_post/update_post_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                       sizeHor(10.0),
                       GestureDetector(
                         onTap: () {
-                          pushToPage(context, const CommentScreen());
+                          pushNamedToPage(context, PageConst.commentPage);
                         },
                         child: const Icon(Boxicons.bx_message_square_detail,
                             color: tPrimaryColor),
@@ -233,7 +232,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      pushToPage(context, const UpdatePostScreen());
+                      pushNamedToPage(context, PageConst.updatePostPage);
                     },
                   ),
                 ],

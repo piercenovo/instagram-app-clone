@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
+import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
-import 'package:instagram_app/features/profile/presentation/screens/profile/edit_profile_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +197,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      pushToPage(context, const EditProfileScreen());
+                      pushNamedToPage(context, PageConst.editProfilePage);
                     },
                   ),
                   ListTile(

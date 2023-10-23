@@ -4,8 +4,8 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/profile/presentation/screens/profile/widgets/profile_form_widget.dart';
 
-class UpdatePostScreen extends StatelessWidget {
-  const UpdatePostScreen({super.key});
+class UpdatePostPage extends StatelessWidget {
+  const UpdatePostPage({super.key});
 
   @override
   Widget build(BuildContext context) {
