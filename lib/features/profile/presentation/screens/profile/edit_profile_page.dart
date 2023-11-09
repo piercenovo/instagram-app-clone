@@ -61,12 +61,15 @@ class EditProfilePage extends StatelessWidget {
               const ProfileFormWidget(
                 title: 'Name',
               ),
+              sizeVer(15),
               const ProfileFormWidget(
                 title: 'Username',
               ),
+              sizeVer(15),
               const ProfileFormWidget(
                 title: 'Website',
               ),
+              sizeVer(15),
               const ProfileFormWidget(
                 title: 'Bio',
               ),

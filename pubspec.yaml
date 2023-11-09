@@ -1,5 +1,5 @@
 name: instagram_app
-description: A new Flutter project.
+description: It is a clone of Instagram with Firebase
 publish_to: "none"
 version: 1.0.0+1
 environment:

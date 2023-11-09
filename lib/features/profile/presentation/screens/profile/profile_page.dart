@@ -135,13 +135,16 @@ class ProfilePage extends StatelessWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      clipBehavior: Clip.hardEdge,
+      backgroundColor: tDarkBlackColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
         return Container(
-          color: tBackGroundColor.withOpacity(0.9),
+          decoration: const BoxDecoration(
+            color: tDarkBlackColor,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
           padding: const EdgeInsets.only(
             top: 16,
             bottom: 16,

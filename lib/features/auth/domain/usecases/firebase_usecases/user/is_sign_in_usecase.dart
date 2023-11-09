@@ -1,4 +1,4 @@
-import 'package:instagram_app/features/auth/domain/repository/firebase_repository.dart';
+import 'package:instagram_app/features/auth/domain/repositories/firebase_repository.dart';
 
 class IsSignInUseCase {
   final FirebaseRepository repository;
