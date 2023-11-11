@@ -1,3 +1,6 @@
+// Empty String
+const String tEmptyString = '';
+
 // Label String
 const String tEmailLabel = 'Email';
 const String tPasswordLabel = 'Password';

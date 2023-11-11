@@ -11,7 +11,12 @@ import 'package:instagram_app/features/search/presentation/screens/search/search
 import 'package:instagram_app/features/home/presentation/pages/home/home_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final String uid;
+
+  const MainPage({
+    super.key,
+    required this.uid,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();

@@ -1,4 +1,5 @@
 class PageConst {
+  static const String initialRoute = "/";
   static const String editProfilePage = "editProfilePage";
   static const String updatePostPage = "updatePostPage";
   static const String commentPage = "commentPage";

@@ -3,7 +3,7 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
-import 'package:instagram_app/features/auth/presentation/widgets/form_container_widget.dart';
+import 'package:instagram_app/features/user/presentation/widgets/form_container_widget.dart';
 
 class CommentPage extends StatefulWidget {
   const CommentPage({super.key});
