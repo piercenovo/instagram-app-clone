@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_app/core/helpers/on_generate_route.dart';
+import 'package:instagram_app/core/pages/main/main_screen.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/theme/theme.dart';
-import 'package:instagram_app/features/home/presentation/pages/main/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             return BlocBuilder<AuthCubit, AuthState>(
               builder: (context, authState) {
                 if (authState is Authenticated) {
-                  return MainPage(uid: authState.uid);
+                  return MainScreen(uid: authState.uid);
                 }
                 return const SignInPage();
               },

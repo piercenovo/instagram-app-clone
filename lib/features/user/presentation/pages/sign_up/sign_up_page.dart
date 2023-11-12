@@ -8,17 +8,17 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/helpers/profile_widget.dart';
+import 'package:instagram_app/core/pages/main/main_screen.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/image_strings.dart';
 import 'package:instagram_app/core/utils/strings/text_strings.dart';
-import 'package:instagram_app/features/home/presentation/pages/main/main_page.dart';
-import 'package:instagram_app/features/home/presentation/widgets/button_container_widget.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/credential/credential_cubit.dart';
+import 'package:instagram_app/features/user/presentation/widgets/button_container_widget.dart';
 import 'package:instagram_app/features/user/presentation/widgets/form_container_widget.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -84,7 +84,7 @@ class _SingUpPageState extends State<SingUpPage> {
             return BlocBuilder<AuthCubit, AuthState>(
               builder: (context, authState) {
                 if (authState is Authenticated) {
-                  return MainPage(uid: authState.uid);
+                  return MainScreen(uid: authState.uid);
                 } else {
                   return _bodyWidget();
                 }

@@ -1,7 +1,7 @@
-import 'package:instagram_app/features/user/domain/repositories/firebase_repository.dart';
+import 'package:instagram_app/features/user/domain/repositories/user_repository.dart';
 
 class SignOutUseCase {
-  final FirebaseRepository repository;
+  final UserRepository repository;
 
   SignOutUseCase({required this.repository});
 

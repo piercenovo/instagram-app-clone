@@ -5,17 +5,17 @@ import 'package:instagram_app/core/utils/constants/firebase.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:instagram_app/features/user/data/data_sources/remote_data_source/remote_data_source.dart';
+import 'package:instagram_app/features/user/data/data_sources/remote_data_source/user_data_source.dart';
 import 'package:instagram_app/features/user/data/models/user_model.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:uuid/uuid.dart';
 
-class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
+class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final FirebaseFirestore firebaseFirestore;
   final FirebaseAuth firebaseAuth;
   final FirebaseStorage firebaseStorage;
 
-  FirebaseRemoteDataSourceImpl({
+  UserRemoteDataSourceImpl({
     required this.firebaseStorage,
     required this.firebaseFirestore,
     required this.firebaseAuth,

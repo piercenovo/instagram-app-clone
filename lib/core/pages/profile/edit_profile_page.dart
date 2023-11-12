@@ -11,9 +11,9 @@ import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
-import 'package:instagram_app/features/profile/presentation/screens/profile/widgets/profile_form_widget.dart';
+import 'package:instagram_app/core/pages/profile/widgets/profile_form_widget.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/storage/upload_image_to_storage_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/storage/upload_image_to_storage_usecase.dart';
 import 'package:instagram_app/features/user/presentation/cubit/user/user_cubit.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
 

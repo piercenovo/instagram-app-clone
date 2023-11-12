@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/sign_in_user_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/sign_up_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/sign_in_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/sign_up_user_usecase.dart';
 
 part 'credential_state.dart';
 

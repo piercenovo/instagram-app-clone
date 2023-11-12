@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:instagram_app/features/user/data/data_sources/remote_data_source/remote_data_source.dart';
+import 'package:instagram_app/features/user/data/data_sources/remote_data_source/user_data_source.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
-import 'package:instagram_app/features/user/domain/repositories/firebase_repository.dart';
+import 'package:instagram_app/features/user/domain/repositories/user_repository.dart';
 
-class FirebaseRepositoryImpl implements FirebaseRepository {
-  final FirebaseRemoteDataSource remoteDataSource;
+class UserRepositoryImpl implements UserRepository {
+  final UserRemoteDataSource remoteDataSource;
 
-  FirebaseRepositoryImpl({required this.remoteDataSource});
+  UserRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<void> createUser(UserEntity user) async =>

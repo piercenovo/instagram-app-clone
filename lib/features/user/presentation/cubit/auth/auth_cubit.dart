@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/get_current_uid.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/is_sign_in_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/sign_out_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/get_current_uid_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/is_sign_in_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/sign_out_user_usecase.dart';
 
 part 'auth_state.dart';
 

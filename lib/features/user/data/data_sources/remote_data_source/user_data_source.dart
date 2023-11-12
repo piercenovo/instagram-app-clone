@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 
-abstract class FirebaseRepository {
+abstract class UserRemoteDataSource {
   // Credential
   Future<void> sigInUser(UserEntity user);
   Future<void> signUpUser(UserEntity user);

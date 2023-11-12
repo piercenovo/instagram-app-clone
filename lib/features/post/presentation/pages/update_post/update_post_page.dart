@@ -3,7 +3,7 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
-import 'package:instagram_app/features/profile/presentation/screens/profile/widgets/profile_form_widget.dart';
+import 'package:instagram_app/core/pages/profile/widgets/profile_form_widget.dart';
 
 class UpdatePostPage extends StatelessWidget {
   const UpdatePostPage({super.key});

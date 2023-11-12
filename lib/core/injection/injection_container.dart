@@ -2,20 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:instagram_app/features/user/data/data_sources/remote_data_source/remote_data_source.dart';
-import 'package:instagram_app/features/user/data/data_sources/remote_data_source/remote_data_source_impl.dart';
-import 'package:instagram_app/features/user/data/repositories/firebase_repository_impl.dart';
-import 'package:instagram_app/features/user/domain/repositories/firebase_repository.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/storage/upload_image_to_storage_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/create_user_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/get_current_uid.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/get_single_user_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/get_users_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/is_sign_in_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/sign_in_user_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/sign_out_user_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/sign_up_user_usecase.dart';
-import 'package:instagram_app/features/user/domain/usecases/firebase_usecases/user/update_user_usecase.dart';
+import 'package:instagram_app/features/user/data/data_sources/remote_data_source/user_data_source.dart';
+import 'package:instagram_app/features/user/data/data_sources/remote_data_source/user_data_source_impl.dart';
+import 'package:instagram_app/features/user/data/repositories/user_repository_impl.dart';
+import 'package:instagram_app/features/user/domain/repositories/user_repository.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/get_current_uid_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/is_sign_in_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/sign_in_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/sign_out_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/sign_up_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/storage/upload_image_to_storage_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/user/create_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/user/get_single_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/user/get_users_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/user/update_user_usecase.dart';
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/credential/credential_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
@@ -69,12 +69,12 @@ Future<void> init() async {
       () => UploadImageToStorageUseCase(repository: sl.call()));
 
   // Repository
-  sl.registerLazySingleton<FirebaseRepository>(
-      () => FirebaseRepositoryImpl(remoteDataSource: sl.call()));
+  sl.registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(remoteDataSource: sl.call()));
 
   // Remote Data Source
-  sl.registerLazySingleton<FirebaseRemoteDataSource>(
-    () => FirebaseRemoteDataSourceImpl(
+  sl.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSourceImpl(
         firebaseStorage: sl.call(),
         firebaseAuth: sl.call(),
         firebaseFirestore: sl.call()),

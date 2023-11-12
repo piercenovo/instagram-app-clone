@@ -1,7 +1,7 @@
-import 'package:instagram_app/features/user/domain/repositories/firebase_repository.dart';
+import 'package:instagram_app/features/user/domain/repositories/user_repository.dart';
 
 class GetCurrentUidUseCase {
-  final FirebaseRepository repository;
+  final UserRepository repository;
 
   GetCurrentUidUseCase({required this.repository});
 
