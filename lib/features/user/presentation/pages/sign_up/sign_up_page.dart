@@ -1,9 +1,13 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, invalid_use_of_visible_for_testing_member, avoid_print
+
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
+import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
@@ -16,6 +20,7 @@ import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/credential/credential_cubit.dart';
 import 'package:instagram_app/features/user/presentation/widgets/form_container_widget.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SingUpPage extends StatefulWidget {
   const SingUpPage({super.key});
@@ -39,6 +44,25 @@ class _SingUpPageState extends State<SingUpPage> {
     _passwordController.dispose();
     _bioController.dispose();
     super.dispose();
+  }
+
+  File? _image;
+
+  Future selectImage() async {
+    try {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      setState(() {
+        if (pickedFile != null) {
+          _image = File(pickedFile.path);
+        } else {
+          print('no image has been selected');
+        }
+      });
+    } catch (e) {
+      toast('Some error occurred $e');
+    }
   }
 
   @override
@@ -99,21 +123,25 @@ class _SingUpPageState extends State<SingUpPage> {
               Center(
                 child: Stack(
                   children: [
-                    Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: tSecondaryColor,
-                        borderRadius: BorderRadius.circular(100),
+                    SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: profileWidget(
+                          image: _image,
+                        ),
                       ),
-                      child: Image.asset(tProfileDefaultImage),
                     ),
                     Positioned(
-                      right: -10,
-                      bottom: -15,
+                      right: -12,
+                      bottom: -12,
                       child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add_a_photo, color: tBlueColor),
+                        onPressed: selectImage,
+                        icon: const Icon(
+                          Boxicons.bxs_image_alt,
+                          color: tBlueColor,
+                        ),
                       ),
                     )
                   ],
@@ -219,7 +247,7 @@ class _SingUpPageState extends State<SingUpPage> {
     );
   }
 
-  void _signUpUser() {
+  Future<void> _signUpUser() async {
     setState(() {
       _isSigninUp = true;
     });
@@ -235,10 +263,10 @@ class _SingUpPageState extends State<SingUpPage> {
             totalFollowing: 0,
             followers: const [],
             totalFollowers: 0,
-            profileUrl: '',
             website: '',
             following: const [],
             name: '',
+            imageFile: _image,
           ),
         )
         .then((value) => _clear());

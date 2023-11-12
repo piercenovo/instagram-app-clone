@@ -11,7 +11,7 @@ import 'package:instagram_app/features/user/presentation/cubit/credential/creden
 import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/user/user_cubit.dart';
 import 'package:instagram_app/features/user/presentation/pages/sign_in/sign_in_page.dart';
-import 'package:instagram_app/firebase_options.dart';
+import 'package:instagram_app/core/helpers/firebase_options.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

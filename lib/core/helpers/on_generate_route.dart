@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/core/pages/no_page_found.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
+import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/pages/sign_in/sign_in_page.dart';
 import 'package:instagram_app/features/user/presentation/pages/sign_up/sign_up_page.dart';
 import 'package:instagram_app/features/post/presentation/pages/comment/comment_page.dart';
@@ -9,12 +10,20 @@ import 'package:instagram_app/features/profile/presentation/screens/profile/edit
 
 class OnGenerateRoute {
   static Route<dynamic>? route(RouteSettings settings) {
-    // final args = settings.arguments;
+    final args = settings.arguments;
 
     switch (settings.name) {
       case PageConst.editProfilePage:
         {
-          return routeBuilder(const EditProfilePage());
+          if (args is UserEntity) {
+            return routeBuilder(
+              EditProfilePage(
+                currentUser: args,
+              ),
+            );
+          } else {
+            return routeBuilder(const NoPageFound());
+          }
         }
       case PageConst.updatePostPage:
         {

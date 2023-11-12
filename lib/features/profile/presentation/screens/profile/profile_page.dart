@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
+import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
+import 'package:instagram_app/core/utils/strings/text_strings.dart';
+import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final UserEntity currentUser;
+
+  const ProfilePage({
+    super.key,
+    required this.currentUser,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +24,9 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: tBackGroundColor,
       appBar: AppBar(
         backgroundColor: tBackGroundColor,
-        title: const Text(
-          'Username',
-          style: TextStyle(color: tPrimaryColor),
+        title: Text(
+          '${currentUser.username}',
+          style: const TextStyle(color: tPrimaryColor),
         ),
         actions: [
           IconButton(
@@ -38,19 +46,23 @@ class ProfilePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 80,
                     height: 80,
-                    decoration: const BoxDecoration(
-                        color: tSecondaryColor, shape: BoxShape.circle),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: profileWidget(
+                        imageUrl: currentUser.profileUrl,
+                      ),
+                    ),
                   ),
                   Row(
                     children: [
                       Column(
                         children: [
-                          const Text(
-                            '0',
-                            style: TextStyle(
+                          Text(
+                            '${currentUser.totalPosts}',
+                            style: const TextStyle(
                                 color: tPrimaryColor,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -64,9 +76,9 @@ class ProfilePage extends StatelessWidget {
                       sizeHor(25),
                       Column(
                         children: [
-                          const Text(
-                            '65',
-                            style: TextStyle(
+                          Text(
+                            '${currentUser.totalFollowers}',
+                            style: const TextStyle(
                                 color: tPrimaryColor,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -80,9 +92,9 @@ class ProfilePage extends StatelessWidget {
                       sizeHor(25),
                       Column(
                         children: [
-                          const Text(
-                            '178',
-                            style: TextStyle(
+                          Text(
+                            '${currentUser.totalFollowing}',
+                            style: const TextStyle(
                                 color: tPrimaryColor,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -98,15 +110,15 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
               sizeVer(10),
-              const Text(
-                'Name',
-                style: TextStyle(
+              Text(
+                '${currentUser.name == tEmptyString ? currentUser.username : currentUser.name}',
+                style: const TextStyle(
                     color: tPrimaryColor, fontWeight: FontWeight.bold),
               ),
               sizeVer(5),
-              const Text(
-                'The bio of user',
-                style: TextStyle(color: tPrimaryColor),
+              Text(
+                '${currentUser.bio}',
+                style: const TextStyle(color: tPrimaryColor),
               ),
               sizeVer(10),
               GridView.builder(
@@ -184,7 +196,9 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      popBack(context);
+                    },
                   ),
                   ListTile(
                     contentPadding:
@@ -202,7 +216,12 @@ class ProfilePage extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      pushNamedToPage(context, PageConst.editProfilePage);
+                      popBack(context);
+                      pushNamedToPage(
+                        context,
+                        PageConst.editProfilePage,
+                        arguments: currentUser,
+                      );
                     },
                   ),
                   ListTile(
@@ -222,6 +241,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     onTap: () {
                       BlocProvider.of<AuthCubit>(context).loggedOut();
+                      popBack(context);
                       pushNamedAndRemoveUntilToPage(
                           context, PageConst.signInPage);
                     },

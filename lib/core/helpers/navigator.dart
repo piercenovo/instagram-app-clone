@@ -4,8 +4,9 @@ void pushToPage(BuildContext context, Widget route) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => route));
 }
 
-void pushNamedToPage(BuildContext context, String routeName) {
-  Navigator.pushNamed(context, routeName);
+void pushNamedToPage(BuildContext context, String routeName,
+    {Object? arguments}) {
+  Navigator.pushNamed(context, routeName, arguments: arguments);
 }
 
 void popBack(BuildContext context) {
