@@ -7,7 +7,7 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/pages/home/home_page.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/pages/activity/activity_page.dart';
-import 'package:instagram_app/features/post/presentation/pages/post/post_page.dart';
+import 'package:instagram_app/features/post/presentation/pages/upload_post/upload_post_page.dart';
 import 'package:instagram_app/core/pages/profile/profile_page.dart';
 import 'package:instagram_app/core/pages/search/search_page.dart';
 import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
@@ -65,19 +65,39 @@ class _MainScreenState extends State<MainScreen> {
               backgroundColor: tBackGroundColor,
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Boxicons.bx_home_smile, color: tPrimaryColor),
+                  icon: Icon(
+                    Boxicons.bx_home_smile,
+                    color: tPrimaryColor,
+                    size: 28,
+                  ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Boxicons.bx_search, color: tPrimaryColor),
+                  icon: Icon(
+                    Boxicons.bx_search,
+                    color: tPrimaryColor,
+                    size: 28,
+                  ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Boxicons.bx_plus, color: tPrimaryColor),
+                  icon: Icon(
+                    Boxicons.bx_plus,
+                    color: tPrimaryColor,
+                    size: 28,
+                  ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Boxicons.bx_heart, color: tPrimaryColor),
+                  icon: Icon(
+                    Boxicons.bx_heart,
+                    color: tPrimaryColor,
+                    size: 28,
+                  ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Boxicons.bx_user, color: tPrimaryColor),
+                  icon: Icon(
+                    Boxicons.bx_user,
+                    color: tPrimaryColor,
+                    size: 28,
+                  ),
                 ),
               ],
               onTap: navigationTapped,
@@ -88,7 +108,7 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 const HomePage(),
                 const SearchPage(),
-                const PostPage(),
+                UploadPostPage(currentUser: currentUser),
                 const ActivityPage(),
                 ProfilePage(currentUser: currentUser),
               ],

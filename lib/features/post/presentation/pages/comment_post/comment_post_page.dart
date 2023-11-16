@@ -5,14 +5,14 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/user/presentation/widgets/form_container_widget.dart';
 
-class CommentPage extends StatefulWidget {
-  const CommentPage({super.key});
+class CommentPostPage extends StatefulWidget {
+  const CommentPostPage({super.key});
 
   @override
-  State<CommentPage> createState() => _CommentPageState();
+  State<CommentPostPage> createState() => _CommentPostPageState();
 }
 
-class _CommentPageState extends State<CommentPage> {
+class _CommentPostPageState extends State<CommentPostPage> {
   bool _isUserReplaying = false;
 
   @override

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:instagram_app/features/user/data/data_sources/remote_data_source/user_data_source.dart';
+import 'package:instagram_app/features/user/data/data_sources/remote_data_source/user_remote_data_source.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/domain/repositories/user_repository.dart';
 
@@ -10,8 +10,8 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<void> createUser(UserEntity user) async =>
-      remoteDataSource.createUser(user);
+  Future<void> createUser(UserEntity user, String profileUrl) async =>
+      remoteDataSource.createUser(user, profileUrl);
 
   @override
   Future<String> getCurrentUid() async => remoteDataSource.getCurrentUid();

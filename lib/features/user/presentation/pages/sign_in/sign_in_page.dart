@@ -119,7 +119,7 @@ class _SignInPageState extends State<SignInPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Please wait',
+                            tPleaseWait,
                             style: TextStyle(
                               color: tPrimaryColor,
                               fontSize: 16,

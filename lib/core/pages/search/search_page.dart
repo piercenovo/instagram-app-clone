@@ -26,31 +26,34 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: tBackGroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SearchWidget(controller: _searchController),
-                sizeVer(10),
-                GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
+          child: Column(
+            children: [
+              SearchWidget(controller: _searchController),
+              sizeVer(10),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                    ),
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 32,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: 100,
+                        height: 100,
+                        color: tSecondaryColor,
+                      );
+                    },
                   ),
-                  physics: const ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 32,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 100,
-                      height: 100,
-                      color: tSecondaryColor,
-                    );
-                  },
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

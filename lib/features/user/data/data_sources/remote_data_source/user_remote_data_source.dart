@@ -13,7 +13,7 @@ abstract class UserRemoteDataSource {
   Stream<List<UserEntity>> getUsers(UserEntity user);
   Stream<List<UserEntity>> getSingleUser(String uid);
   Future<String> getCurrentUid();
-  Future<void> createUser(UserEntity user);
+  Future<void> createUser(UserEntity user, String profileUrl);
   Future<void> updateUser(UserEntity user);
 
   // Cloud Storage

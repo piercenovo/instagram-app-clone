@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field, avoid_print
+// ignore_for_file: avoid_print, unused_field
 
 import 'dart:io';
 
@@ -13,40 +13,39 @@ import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/pages/profile/widgets/profile_form_widget.dart';
 import 'package:instagram_app/core/utils/strings/text_strings.dart';
-import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
-import 'package:instagram_app/features/user/domain/usecases/storage/upload_image_to_storage_usecase.dart';
-import 'package:instagram_app/features/user/presentation/cubit/user/user_cubit.dart';
+import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
+import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
+import 'package:instagram_app/features/user/domain/usecases/storage/upload_image_to_storage_usecase.dart';
 
-class EditProfilePage extends StatefulWidget {
-  final UserEntity currentUser;
+class UpdatePostMainWidget extends StatefulWidget {
+  final PostEntity post;
 
-  const EditProfilePage({
+  const UpdatePostMainWidget({
     super.key,
-    required this.currentUser,
+    required this.post,
   });
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
+  State<UpdatePostMainWidget> createState() => _UpdatePostMainWidgetState();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
-  TextEditingController? _nameController;
-  TextEditingController? _usernameController;
-  TextEditingController? _websiteController;
-  TextEditingController? _bioController;
+class _UpdatePostMainWidgetState extends State<UpdatePostMainWidget> {
+  TextEditingController? _descriptionController;
 
-  bool _isUpdating = false;
+  bool _updating = false;
 
   @override
   void initState() {
-    _nameController = TextEditingController(text: widget.currentUser.name);
-    _usernameController =
-        TextEditingController(text: widget.currentUser.username);
-    _websiteController =
-        TextEditingController(text: widget.currentUser.website);
-    _bioController = TextEditingController(text: widget.currentUser.bio);
+    _descriptionController =
+        TextEditingController(text: widget.post.description);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _descriptionController!.dispose();
+    super.dispose();
   }
 
   File? _image;
@@ -75,24 +74,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
       appBar: AppBar(
         backgroundColor: tBackGroundColor,
         title: const Text(
-          'Edit Profile',
+          'Edit Post',
           style: TextStyle(color: tPrimaryColor),
         ),
         leading: IconButton(
           onPressed: () {
             popBack(context);
           },
-          icon: const Icon(Boxicons.bx_x, color: tPrimaryColor, size: 32),
+          icon: const Icon(Boxicons.bx_arrow_back, color: tPrimaryColor),
         ),
         actions: [
           IconButton(
-            onPressed: _updateUserProfileData,
+            onPressed: _updatePost,
             icon: const Icon(Boxicons.bx_check, color: tBlueColor, size: 32),
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -103,55 +102,69 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: profileWidget(
-                      imageUrl: widget.currentUser.profileUrl,
+                      imageUrl: widget.post.userProfileUrl,
+                    ),
+                  ),
+                ),
+              ),
+              sizeVer(15),
+              Text(
+                '${widget.post.username}',
+                style: const TextStyle(
+                    color: tPrimaryColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              sizeVer(15),
+              Stack(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: profileWidget(
+                      imageUrl: widget.post.postImageUrl,
                       image: _image,
                     ),
                   ),
-                ),
-              ),
-              sizeVer(15),
-              Center(
-                child: GestureDetector(
-                  onTap: selectImage,
-                  child: const Text(
-                    'Change profile photo',
-                    style: TextStyle(
-                      color: tBlueColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
+                  Positioned(
+                    top: 15,
+                    right: 15,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        onTap: selectImage,
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: tPrimaryColor,
+                          ),
+                          child: const Icon(
+                            Boxicons.bxs_edit,
+                            color: tBlueColor,
+                            size: 20.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              sizeVer(15),
-              ProfileFormWidget(
-                title: 'Name',
-                controller: _nameController,
-              ),
-              sizeVer(15),
-              ProfileFormWidget(
-                title: 'Username',
-                controller: _usernameController,
-              ),
-              sizeVer(15),
-              ProfileFormWidget(
-                title: 'Website',
-                controller: _websiteController,
-              ),
-              sizeVer(15),
-              ProfileFormWidget(
-                title: 'Bio',
-                controller: _bioController,
+                ],
               ),
               sizeVer(10),
-              _isUpdating
+              ProfileFormWidget(
+                title: 'Description',
+                controller: _descriptionController,
+              ),
+              sizeVer(tCardPadding),
+              _updating
                   ? SizedBox(
                       height: 30,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            tPleaseWait,
+                            tUpdating,
                             style: TextStyle(
                               color: tPrimaryColor,
                               fontSize: 16,
@@ -179,33 +192,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  _updateUserProfileData() {
+  _updatePost() {
+    setState(() {
+      _updating = true;
+    });
     if (_image == null) {
-      _updateUserProfile('');
+      _submitUpdatePost(image: widget.post.postImageUrl!);
     } else {
       di
           .sl<UploadImageToStorageUseCase>()
-          .call(_image!, false, 'profileImages')
-          .then((profileUrl) {
-        _updateUserProfile(profileUrl);
+          .call(_image!, true, 'posts')
+          .then((imageUrl) {
+        _submitUpdatePost(image: imageUrl);
       });
     }
   }
 
-  _updateUserProfile(String profileUrl) {
-    setState(() {
-      _isUpdating = true;
-    });
-
-    BlocProvider.of<UserCubit>(context)
-        .updateUser(
-          user: UserEntity(
-            uid: widget.currentUser.uid,
-            name: _nameController!.text,
-            username: _usernameController!.text,
-            website: _websiteController!.text,
-            bio: _bioController!.text,
-            profileUrl: profileUrl,
+  _submitUpdatePost({required String image}) {
+    BlocProvider.of<PostCubit>(context)
+        .updatePost(
+          post: PostEntity(
+            creatorUid: widget.post.creatorUid,
+            postId: widget.post.postId,
+            postImageUrl: image,
+            description: _descriptionController!.text,
           ),
         )
         .then((value) => _clear());
@@ -213,12 +223,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   _clear() {
     setState(() {
-      _nameController!.clear();
-      _usernameController!.clear();
-      _websiteController!.clear();
-      _bioController!.clear();
-      _isUpdating = false;
+      _image = null;
+      _descriptionController!.clear();
+      _updating = false;
+      popBack(context);
     });
-    popBack(context);
   }
 }

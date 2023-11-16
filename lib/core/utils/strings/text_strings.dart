@@ -1,3 +1,8 @@
+// Loading String
+const String tPleaseWait = 'Please wait...';
+const String tUploading = 'Uploading...';
+const String tUpdating = 'Updating...';
+
 // Empty String
 const String tEmptyString = '';
 

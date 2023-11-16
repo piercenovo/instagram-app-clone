@@ -7,30 +7,30 @@ import 'package:shimmer/shimmer.dart';
 
 Widget profileWidget({String? imageUrl, File? image}) {
   if (image == null) {
-    if (imageUrl == null || imageUrl == "") {
+    if (imageUrl == null || imageUrl == '') {
       return Image.asset(
         tProfileDefaultImage,
         fit: BoxFit.cover,
+        alignment: Alignment.center,
       );
     } else {
       return CachedNetworkImage(
         imageUrl: imageUrl,
         fit: BoxFit.cover,
+        alignment: Alignment.center,
         progressIndicatorBuilder: (context, url, downloadProgress) {
           return Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: Colors.grey[400]!,
+            highlightColor: Colors.grey[200]!,
             child: Container(
-              decoration: ShapeDecoration(
-                color: Colors.grey[300],
-                shape: const CircleBorder(),
-              ),
+              color: Colors.grey[400],
             ),
           );
         },
         errorWidget: (context, url, error) => Image.asset(
           tProfileDefaultImage,
           fit: BoxFit.cover,
+          alignment: Alignment.center,
         ),
       );
     }
