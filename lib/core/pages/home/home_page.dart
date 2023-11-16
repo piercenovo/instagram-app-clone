@@ -59,7 +59,10 @@ class _HomePageState extends State<HomePage> {
                 itemCount: postState.posts.length,
                 itemBuilder: (context, index) {
                   final post = postState.posts[index];
-                  return SinglePostCardWidget(post: post);
+                  return BlocProvider(
+                    create: (context) => di.sl<PostCubit>(),
+                    child: SinglePostCardWidget(post: post),
+                  );
                 },
               );
             }

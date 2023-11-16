@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/helpers/profile_widget.dart';
@@ -6,9 +7,10 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
+import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:intl/intl.dart';
 
-class SinglePostCardWidget extends StatelessWidget {
+class SinglePostCardWidget extends StatefulWidget {
   final PostEntity post;
 
   const SinglePostCardWidget({
@@ -16,6 +18,11 @@ class SinglePostCardWidget extends StatelessWidget {
     required this.post,
   });
 
+  @override
+  State<SinglePostCardWidget> createState() => _SinglePostCardWidgetState();
+}
+
+class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
@@ -38,13 +45,13 @@ class SinglePostCardWidget extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: profileWidget(
-                          imageUrl: post.userProfileUrl,
+                          imageUrl: widget.post.userProfileUrl,
                         ),
                       ),
                     ),
                     sizeHor(10),
                     Text(
-                      '${post.username}',
+                      '${widget.post.username}',
                       style: const TextStyle(
                           color: tPrimaryColor, fontWeight: FontWeight.bold),
                     )
@@ -64,7 +71,7 @@ class SinglePostCardWidget extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: height * 0.3,
-            child: profileWidget(imageUrl: post.postImageUrl),
+            child: profileWidget(imageUrl: widget.post.postImageUrl),
           ),
           sizeVer(10.0),
           Padding(
@@ -92,12 +99,12 @@ class SinglePostCardWidget extends StatelessWidget {
             ),
           ),
           sizeVer(10.0),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Text(
-              '34 likes',
-              style:
-                  TextStyle(color: tPrimaryColor, fontWeight: FontWeight.bold),
+              '${widget.post.totalLikes} likes',
+              style: const TextStyle(
+                  color: tPrimaryColor, fontWeight: FontWeight.bold),
             ),
           ),
           sizeVer(5.0),
@@ -106,14 +113,14 @@ class SinglePostCardWidget extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '${post.username}',
+                  '${widget.post.username}',
                   style: const TextStyle(
                       color: tPrimaryColor, fontWeight: FontWeight.bold),
                 ),
                 sizeHor(8.0),
                 Expanded(
                   child: Text(
-                    '${post.description}',
+                    '${widget.post.description}',
                     style: const TextStyle(color: tPrimaryColor),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -129,12 +136,13 @@ class SinglePostCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'View all ${post.totalComments} comments',
+                  'View all ${widget.post.totalComments} comments',
                   style: const TextStyle(color: tDarkGreyColor),
                 ),
                 sizeVer(8.0),
                 Text(
-                  DateFormat('dd/MMM/yyy').format(post.createAt!.toDate()),
+                  DateFormat('dd/MMM/yyy')
+                      .format(widget.post.createAt!.toDate()),
                   style: const TextStyle(color: tDarkGreyColor),
                 ),
               ],
@@ -195,6 +203,7 @@ class SinglePostCardWidget extends StatelessWidget {
                         ),
                       ],
                     ),
+                    onTap: _deletePost,
                   ),
                   ListTile(
                     contentPadding:
@@ -216,7 +225,7 @@ class SinglePostCardWidget extends StatelessWidget {
                       pushNamedToPage(
                         context,
                         PageConst.updatePostPage,
-                        arguments: post,
+                        arguments: widget.post,
                       );
                     },
                   ),
@@ -227,5 +236,11 @@ class SinglePostCardWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  _deletePost() {
+    BlocProvider.of<PostCubit>(context)
+        .deletePost(post: PostEntity(postId: widget.post.postId));
+    popBack(context);
   }
 }
