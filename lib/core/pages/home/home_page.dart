@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
               }
 
               return ListView.builder(
-                physics: const BouncingScrollPhysics(),
                 itemCount: postState.posts.length,
                 itemBuilder: (context, index) {
                   final post = postState.posts[index];
@@ -78,7 +77,7 @@ class _HomePageState extends State<HomePage> {
   _noPostsYetWidget() {
     return const Center(
       child: Text(
-        "No Posts Yet",
+        'No Posts Yet',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w500,

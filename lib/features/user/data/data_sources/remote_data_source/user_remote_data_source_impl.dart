@@ -12,8 +12,8 @@ import 'package:uuid/uuid.dart';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final FirebaseFirestore fireStore;
-  final FirebaseAuth auth;
   final FirebaseStorage storage;
+  final FirebaseAuth auth;
 
   UserRemoteDataSourceImpl({
     required this.storage,
@@ -52,38 +52,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       toast('Some error occurred');
     });
   }
-
-  // @override
-  // Future<void> createUser(UserEntity user) async {
-  //   final userCollection = fireStore.collection(FirebaseConst.users);
-
-  //   final uid = await getCurrentUid();
-
-  //   userCollection.doc(uid).get().then((userDoc) {
-  //     final newUser = UserModel(
-  //       uid: uid,
-  //       username: user.username,
-  //       name: user.name,
-  //       bio: user.bio,
-  //       website: user.website,
-  //       email: user.email,
-  //       profileUrl: user.profileUrl,
-  //       followers: user.followers,
-  //       following: user.following,
-  //       totalFollowers: user.totalFollowers,
-  //       totalFollowing: user.totalFollowing,
-  //       totalPosts: user.totalPosts,
-  //     ).toJson();
-
-  //     if (!userDoc.exists) {
-  //       userCollection.doc(uid).set(newUser);
-  //     } else {
-  //       userCollection.doc(uid).update(newUser);
-  //     }
-  //   }).catchError((error) {
-  //     toast('Some error occurred');
-  //   });
-  // }
 
   @override
   Future<String> getCurrentUid() async => auth.currentUser!.uid;

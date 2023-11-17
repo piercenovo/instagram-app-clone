@@ -79,8 +79,8 @@ Future<void> userInjectionContainer() async {
   sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(
       storage: sl.call(),
-      auth: sl.call(),
       fireStore: sl.call(),
+      auth: sl.call(),
     ),
   );
 }

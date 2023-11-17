@@ -48,6 +48,7 @@ Future<void> postInjectionContainer() async {
     () => PostRemoteDataSourceImpl(
       storage: sl.call(),
       fireStore: sl.call(),
+      auth: sl.call(),
     ),
   );
 }
