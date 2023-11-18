@@ -7,7 +7,7 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/pages/home/home_page.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/pages/activity/activity_page.dart';
-import 'package:instagram_app/features/post/presentation/pages/upload_post/upload_post_page.dart';
+import 'package:instagram_app/features/post/presentation/pages/post/upload_post/upload_post_page.dart';
 import 'package:instagram_app/core/pages/profile/profile_page.dart';
 import 'package:instagram_app/core/pages/search/search_page.dart';
 import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
@@ -106,7 +106,7 @@ class _MainScreenState extends State<MainScreen> {
               controller: pageController,
               onPageChanged: onPageChanged,
               children: [
-                const HomePage(),
+                HomePage(currentUser: currentUser),
                 const SearchPage(),
                 UploadPostPage(currentUser: currentUser),
                 const ActivityPage(),

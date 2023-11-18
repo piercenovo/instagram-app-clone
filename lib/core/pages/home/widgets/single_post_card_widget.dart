@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:instagram_app/core/entities/app_entity.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
@@ -11,16 +12,19 @@ import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
 import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:instagram_app/features/post/presentation/widgets/like_animation_widget.dart';
+import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/domain/usecases/credential/get_current_uid_usecase.dart';
 import 'package:intl/intl.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
 
 class SinglePostCardWidget extends StatefulWidget {
   final PostEntity post;
+  final UserEntity currentUser;
 
   const SinglePostCardWidget({
     super.key,
     required this.post,
+    required this.currentUser,
   });
 
   @override
@@ -64,7 +68,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: profileWidget(
-                          imageUrl: widget.post.userProfileUrl,
+                          imageUrl: '${widget.post.userProfileUrl}',
                         ),
                       ),
                     ),
@@ -78,7 +82,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _openBottomModalSheet(context);
+                    _openBottomModalSheet(context, widget.post);
                   },
                   child: const Icon(Boxicons.bx_dots_horizontal,
                       color: tPrimaryColor),
@@ -145,7 +149,14 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                     sizeHor(10.0),
                     GestureDetector(
                       onTap: () {
-                        pushNamedToPage(context, PageConst.commentPage);
+                        pushNamedToPage(
+                          context,
+                          PageConst.commentPage,
+                          arguments: AppEntity(
+                            uid: _currentUid,
+                            postId: widget.post.postId,
+                          ),
+                        );
                       },
                       child: const Icon(Boxicons.bx_message_square_detail,
                           color: tPrimaryColor),
@@ -195,9 +206,21 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'View all ${widget.post.totalComments} comments',
-                  style: const TextStyle(color: tDarkGreyColor),
+                GestureDetector(
+                  onTap: () {
+                    pushNamedToPage(
+                      context,
+                      PageConst.commentPage,
+                      arguments: AppEntity(
+                        uid: _currentUid,
+                        postId: widget.post.postId,
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'View all ${widget.post.totalComments} comments',
+                    style: const TextStyle(color: tDarkGreyColor),
+                  ),
                 ),
                 sizeVer(8.0),
                 Text(
@@ -213,7 +236,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
     );
   }
 
-  _openBottomModalSheet(BuildContext context) {
+  _openBottomModalSheet(BuildContext context, PostEntity postEntity) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -275,7 +298,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                             color: tPrimaryColor, size: 20),
                         sizeHor(10),
                         const Text(
-                          'Update Post',
+                          'Update post',
                           style: TextStyle(color: tPrimaryColor, fontSize: 16),
                         ),
                       ],
@@ -285,7 +308,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                       pushNamedToPage(
                         context,
                         PageConst.updatePostPage,
-                        arguments: widget.post,
+                        arguments: postEntity,
                       );
                     },
                   ),

@@ -9,9 +9,15 @@ import 'package:instagram_app/core/utils/strings/image_strings.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
 import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
+import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final UserEntity currentUser;
+
+  const HomePage({
+    super.key,
+    required this.currentUser,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -50,20 +56,19 @@ class _HomePageState extends State<HomePage> {
               toast('Some Failure ocurred while creating the post');
             }
             if (postState is PostLoaded) {
-              if (postState.posts.isEmpty) {
-                return _noPostsYetWidget();
-              }
-
-              return ListView.builder(
-                itemCount: postState.posts.length,
-                itemBuilder: (context, index) {
-                  final post = postState.posts[index];
-                  return BlocProvider(
-                    create: (context) => di.sl<PostCubit>(),
-                    child: SinglePostCardWidget(post: post),
-                  );
-                },
-              );
+              return postState.posts.isEmpty
+                  ? _noPostsYetWidget()
+                  : ListView.builder(
+                      itemCount: postState.posts.length,
+                      itemBuilder: (context, index) {
+                        final post = postState.posts[index];
+                        return BlocProvider(
+                          create: (context) => di.sl<PostCubit>(),
+                          child: SinglePostCardWidget(
+                              post: post, currentUser: widget.currentUser),
+                        );
+                      },
+                    );
             }
             return const Center(
               child: CircularProgressIndicator(),

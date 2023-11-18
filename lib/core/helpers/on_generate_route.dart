@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/core/entities/app_entity.dart';
 import 'package:instagram_app/core/pages/no_page_found/no_page_found.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
+import 'package:instagram_app/features/post/domain/entities/comment_entity.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
+import 'package:instagram_app/features/post/presentation/pages/comment/edit_comment/edit_comment_page.dart';
+import 'package:instagram_app/features/post/presentation/pages/post/update_post/update_post_page.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/pages/sign_in/sign_in_page.dart';
 import 'package:instagram_app/features/user/presentation/pages/sign_up/sign_up_page.dart';
-import 'package:instagram_app/features/post/presentation/pages/comment_post/comment_post_page.dart';
-import 'package:instagram_app/features/post/presentation/pages/update_post/update_post_page.dart';
+import 'package:instagram_app/features/post/presentation/pages/comment/comment/comment_page.dart';
 import 'package:instagram_app/core/pages/profile/edit_profile_page.dart';
 
 class OnGenerateRoute {
@@ -40,7 +43,27 @@ class OnGenerateRoute {
         }
       case PageConst.commentPage:
         {
-          return routeBuilder(const CommentPostPage());
+          if (args is AppEntity) {
+            return routeBuilder(
+              CommentPage(
+                appEntity: args,
+              ),
+            );
+          } else {
+            return routeBuilder(const NoPageFound());
+          }
+        }
+      case PageConst.updateCommentPage:
+        {
+          if (args is CommentEntity) {
+            return routeBuilder(
+              EditCommentPage(
+                comment: args,
+              ),
+            );
+          } else {
+            return routeBuilder(const NoPageFound());
+          }
         }
       case PageConst.signInPage:
         {

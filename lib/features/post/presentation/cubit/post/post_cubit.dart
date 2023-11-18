@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
-import 'package:instagram_app/features/post/domain/usecases/create_post_usecase.dart';
-import 'package:instagram_app/features/post/domain/usecases/delete_post_usecase.dart';
-import 'package:instagram_app/features/post/domain/usecases/like_post_usecase.dart';
-import 'package:instagram_app/features/post/domain/usecases/read_posts_usecase.dart';
-import 'package:instagram_app/features/post/domain/usecases/update_post_usecase.dart';
+import 'package:instagram_app/features/post/domain/usecases/post/create_post_usecase.dart';
+import 'package:instagram_app/features/post/domain/usecases/post/delete_post_usecase.dart';
+import 'package:instagram_app/features/post/domain/usecases/post/like_post_usecase.dart';
+import 'package:instagram_app/features/post/domain/usecases/post/read_posts_usecase.dart';
+import 'package:instagram_app/features/post/domain/usecases/post/update_post_usecase.dart';
 
 part 'post_state.dart';
 

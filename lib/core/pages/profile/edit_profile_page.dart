@@ -86,7 +86,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         actions: [
           IconButton(
-            onPressed: _updateUserProfileData,
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              _updateUserProfileData();
+            },
             icon: const Icon(Boxicons.bx_check, color: tBlueColor, size: 32),
           ),
         ],
@@ -180,6 +183,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   _updateUserProfileData() {
+    setState(() {
+      _isUpdating = true;
+    });
     if (_image == null) {
       _updateUserProfile('');
     } else {
@@ -193,10 +199,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   _updateUserProfile(String profileUrl) {
-    setState(() {
-      _isUpdating = true;
-    });
-
     BlocProvider.of<UserCubit>(context)
         .updateUser(
           user: UserEntity(

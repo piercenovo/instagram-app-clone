@@ -133,41 +133,41 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<void> updateUser(UserEntity user) async {
     final userCollection = fireStore.collection(FirebaseConst.users);
 
-    Map<String, dynamic> userInformation = {};
+    Map<String, dynamic> userInfo = {};
 
     if (user.username != '' && user.username != null) {
-      userInformation['username'] = user.username;
+      userInfo['username'] = user.username;
     }
 
     if (user.name != '' && user.name != null) {
-      userInformation['name'] = user.name;
+      userInfo['name'] = user.name;
     }
 
     if (user.bio != '' && user.bio != null) {
-      userInformation['bio'] = user.bio;
+      userInfo['bio'] = user.bio;
     }
 
     if (user.website != '' && user.website != null) {
-      userInformation['website'] = user.website;
+      userInfo['website'] = user.website;
     }
 
     if (user.profileUrl != '' && user.profileUrl != null) {
-      userInformation['profileUrl'] = user.profileUrl;
+      userInfo['profileUrl'] = user.profileUrl;
     }
 
     if (user.totalFollowers != null) {
-      userInformation['totalFollowers'] = user.totalFollowers;
+      userInfo['totalFollowers'] = user.totalFollowers;
     }
 
     if (user.totalFollowing != null) {
-      userInformation['totalFollowing'] = user.totalFollowing;
+      userInfo['totalFollowing'] = user.totalFollowing;
     }
 
     if (user.totalPosts != null) {
-      userInformation['totalPosts'] = user.totalPosts;
+      userInfo['totalPosts'] = user.totalPosts;
     }
 
-    userCollection.doc(user.uid).update(userInformation);
+    userCollection.doc(user.uid).update(userInfo);
   }
 
   @override

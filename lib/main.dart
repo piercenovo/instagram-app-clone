@@ -5,13 +5,13 @@ import 'package:instagram_app/core/pages/main/main_screen.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:instagram_app/core/injection/injection_container.dart' as di;
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/credential/credential_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/user/user_cubit.dart';
 import 'package:instagram_app/features/user/presentation/pages/sign_in/sign_in_page.dart';
 import 'package:instagram_app/core/helpers/firebase_options.dart';
+import 'package:instagram_app/core/injection/injection_container.dart' as di;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
