@@ -7,6 +7,7 @@ import 'package:instagram_app/core/entities/app_entity.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
+import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
@@ -82,7 +83,9 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _openBottomModalSheet(context, widget.post);
+                    widget.post.creatorUid == widget.currentUser.uid
+                        ? _openBottomModalSheet(context, widget.post)
+                        : toast('No options available');
                   },
                   child: const Icon(Boxicons.bx_dots_horizontal,
                       color: tPrimaryColor),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/features/post/domain/entities/comment_entity.dart';
 import 'package:instagram_app/features/post/domain/usecases/comment/create_comment_usecase.dart';
 import 'package:instagram_app/features/post/domain/usecases/comment/delete_comment_usecase.dart';
@@ -74,6 +75,7 @@ class CommentCubit extends Cubit<CommentState> {
   Future<void> deleteComment({required CommentEntity comment}) async {
     try {
       await deleteCommentUseCase.call(comment);
+      toast('Comment Deleted');
     } on SocketException catch (_) {
       emit(CommentFailure());
     } catch (_) {

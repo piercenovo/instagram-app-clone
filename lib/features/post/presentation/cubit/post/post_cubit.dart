@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
 import 'package:instagram_app/features/post/domain/usecases/post/create_post_usecase.dart';
 import 'package:instagram_app/features/post/domain/usecases/post/delete_post_usecase.dart';
@@ -54,6 +55,7 @@ class PostCubit extends Cubit<PostState> {
   Future<void> createPost({required PostEntity post}) async {
     try {
       await createPostUseCase.call(post);
+      toast('Post Created');
     } on SocketException catch (_) {
       emit(PostFailure());
     } catch (_) {
@@ -64,6 +66,7 @@ class PostCubit extends Cubit<PostState> {
   Future<void> updatePost({required PostEntity post}) async {
     try {
       await updatePostUseCase.call(post);
+      toast('Post Updated');
     } on SocketException catch (_) {
       emit(PostFailure());
     } catch (_) {

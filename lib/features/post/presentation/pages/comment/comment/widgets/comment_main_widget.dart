@@ -6,14 +6,18 @@ import 'package:instagram_app/core/entities/app_entity.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
+import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/post/domain/entities/comment_entity.dart';
 import 'package:instagram_app/features/post/presentation/cubit/comment/comment_cubit.dart';
+import 'package:instagram_app/features/post/presentation/cubit/get_single_post/get_single_post_cubit.dart';
+import 'package:instagram_app/features/post/presentation/cubit/replay/replay_cubit.dart';
 import 'package:instagram_app/features/post/presentation/pages/comment/comment/widgets/single_comment_widget.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
 import 'package:uuid/uuid.dart';
+import 'package:instagram_app/core/injection/injection_container.dart' as di;
 
 class CommentMainWidget extends StatefulWidget {
   final AppEntity appEntity;
@@ -37,6 +41,9 @@ class _CommentMainWidgetState extends State<CommentMainWidget> {
     );
     BlocProvider.of<CommentCubit>(context).getComments(
       postId: widget.appEntity.postId!,
+    );
+    BlocProvider.of<GetSinglePostCubit>(context).getSinglePost(
+      uid: widget.appEntity.postId!,
     );
     super.initState();
   }
@@ -68,83 +75,99 @@ class _CommentMainWidgetState extends State<CommentMainWidget> {
           builder: (context, singleUserState) {
         if (singleUserState is GetSingleUserLoaded) {
           final singleUser = singleUserState.user;
-          return BlocBuilder<CommentCubit, CommentState>(
-            builder: (context, commentState) {
-              if (commentState is CommentLoaded) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+          return BlocBuilder<GetSinglePostCubit, GetSinglePostState>(
+              builder: (context, singlePostState) {
+            if (singlePostState is GetSinglePostLoaded) {
+              final singlePost = singlePostState.post;
+              return BlocBuilder<CommentCubit, CommentState>(
+                builder: (context, commentState) {
+                  if (commentState is CommentLoaded) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: const BoxDecoration(
-                                    color: tSecondaryColor,
-                                    shape: BoxShape.circle,
-                                  )),
-                              sizeHor(10),
-                              const Text(
-                                'Username',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: profileWidget(
+                                          imageUrl: singlePost.userProfileUrl),
+                                    ),
+                                  ),
+                                  sizeHor(10),
+                                  Text(
+                                    '${singlePost.username}',
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: tPrimaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              sizeVer(10),
+                              Text(
+                                '${singlePost.description}',
+                                style: const TextStyle(
                                   color: tPrimaryColor,
                                 ),
                               ),
                             ],
                           ),
-                          sizeVer(10),
-                          const Text(
-                            'This is very beatiful place',
-                            style: TextStyle(
-                              color: tPrimaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    sizeVer(10),
-                    const Divider(
-                      color: tSecondaryColor,
-                    ),
-                    sizeVer(10),
-                    Expanded(
-                      child: commentState.comments.isEmpty
-                          ? _noCommentsYetWidget()
-                          : ListView.builder(
-                              itemCount: commentState.comments.length,
-                              itemBuilder: ((context, index) {
-                                final singleComment =
-                                    commentState.comments[index];
-                                return SingleCommentWidget(
-                                  comment: singleComment,
-                                  onLongPressListener: () {
-                                    _openBottomModalSheet(
-                                      context: context,
-                                      comment: singleComment,
+                        ),
+                        sizeVer(10),
+                        const Divider(
+                          color: tSecondaryColor,
+                        ),
+                        sizeVer(10),
+                        Expanded(
+                          child: commentState.comments.isEmpty
+                              ? _noCommentsYetWidget()
+                              : ListView.builder(
+                                  itemCount: commentState.comments.length,
+                                  itemBuilder: ((context, index) {
+                                    final singleComment =
+                                        commentState.comments[index];
+                                    return BlocProvider(
+                                      create: (context) => di.sl<ReplayCubit>(),
+                                      child: SingleCommentWidget(
+                                        currentUser: singleUser,
+                                        comment: singleComment,
+                                        onLongPressListener: () {
+                                          singleComment.creatorUid ==
+                                                  singlePost.creatorUid
+                                              ? _openBottomModalSheet(
+                                                  context: context,
+                                                  comment: singleComment,
+                                                )
+                                              : toast('No options available');
+                                        },
+                                        onLikeClickListener: () {
+                                          _likeComment(comment: singleComment);
+                                        },
+                                      ),
                                     );
-                                  },
-                                  onLikeClickListener: () {
-                                    _likeComment(comment: singleComment);
-                                  },
-                                );
-                              }),
-                            ),
-                    ),
-                    _commentSection(currentUser: singleUser),
-                  ],
-                );
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          );
+                                  }),
+                                ),
+                        ),
+                        _commentSection(currentUser: singleUser),
+                      ],
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          });
         }
         return const Center(child: CircularProgressIndicator());
       }),

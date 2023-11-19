@@ -85,7 +85,10 @@ class _UpdatePostMainWidgetState extends State<UpdatePostMainWidget> {
         ),
         actions: [
           IconButton(
-            onPressed: _updatePost,
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              _updatePost();
+            },
             icon: const Icon(Boxicons.bx_check, color: tBlueColor, size: 32),
           ),
         ],
