@@ -9,14 +9,10 @@ import 'package:instagram_app/core/utils/strings/image_strings.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
 import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
-import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 
 class HomePage extends StatefulWidget {
-  final UserEntity currentUser;
-
   const HomePage({
     super.key,
-    required this.currentUser,
   });
 
   @override
@@ -62,10 +58,9 @@ class _HomePageState extends State<HomePage> {
                       itemCount: postState.posts.length,
                       itemBuilder: (context, index) {
                         final post = postState.posts[index];
-                        return BlocProvider(
+                        return BlocProvider<PostCubit>(
                           create: (context) => di.sl<PostCubit>(),
-                          child: SinglePostCardWidget(
-                              post: post, currentUser: widget.currentUser),
+                          child: SinglePostCardWidget(post: post),
                         );
                       },
                     );

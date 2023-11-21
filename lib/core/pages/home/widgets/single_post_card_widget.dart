@@ -7,25 +7,21 @@ import 'package:instagram_app/core/entities/app_entity.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
-import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
 import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:instagram_app/features/post/presentation/widgets/like_animation_widget.dart';
-import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/domain/usecases/credential/get_current_uid_usecase.dart';
 import 'package:intl/intl.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
 
 class SinglePostCardWidget extends StatefulWidget {
   final PostEntity post;
-  final UserEntity currentUser;
 
   const SinglePostCardWidget({
     super.key,
     required this.post,
-    required this.currentUser,
   });
 
   @override
@@ -33,8 +29,6 @@ class SinglePostCardWidget extends StatefulWidget {
 }
 
 class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
-  bool _isLikeAnimating = false;
-
   String _currentUid = '';
 
   @override
@@ -47,6 +41,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
     super.initState();
   }
 
+  bool _isLikeAnimating = false;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
@@ -81,15 +76,15 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                     )
                   ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    widget.post.creatorUid == widget.currentUser.uid
-                        ? _openBottomModalSheet(context, widget.post)
-                        : toast('No options available');
-                  },
-                  child: const Icon(Boxicons.bx_dots_horizontal,
-                      color: tPrimaryColor),
-                ),
+                widget.post.creatorUid == _currentUid
+                    ? GestureDetector(
+                        onTap: () {
+                          _openBottomModalSheet(context, widget.post);
+                        },
+                        child: const Icon(Boxicons.bx_dots_horizontal,
+                            color: tPrimaryColor),
+                      )
+                    : const SizedBox.shrink(),
               ],
             ),
           ),
@@ -239,7 +234,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
     );
   }
 
-  _openBottomModalSheet(BuildContext context, PostEntity postEntity) {
+  _openBottomModalSheet(BuildContext context, PostEntity post) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -289,7 +284,10 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                         ),
                       ],
                     ),
-                    onTap: _deletePost,
+                    onTap: () {
+                      popBack(context);
+                      _deletePost();
+                    },
                   ),
                   ListTile(
                     contentPadding:
@@ -311,7 +309,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                       pushNamedToPage(
                         context,
                         PageConst.updatePostPage,
-                        arguments: postEntity,
+                        arguments: post,
                       );
                     },
                   ),
@@ -325,15 +323,19 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
   }
 
   _deletePost() {
-    BlocProvider.of<PostCubit>(context)
-        .deletePost(post: PostEntity(postId: widget.post.postId));
-    popBack(context);
+    BlocProvider.of<PostCubit>(context).deletePost(
+      post: PostEntity(
+        postId: widget.post.postId,
+        creatorUid: _currentUid,
+      ),
+    );
   }
 
   _likePost() {
     BlocProvider.of<PostCubit>(context).likePost(
-        post: PostEntity(
-      postId: widget.post.postId,
-    ));
+      post: PostEntity(
+        postId: widget.post.postId,
+      ),
+    );
   }
 }

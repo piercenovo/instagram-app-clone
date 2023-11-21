@@ -7,6 +7,7 @@ import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
 import 'package:instagram_app/features/post/domain/entities/replay_entity.dart';
 import 'package:instagram_app/features/post/presentation/pages/comment/edit_comment/edit_comment_page.dart';
 import 'package:instagram_app/features/post/presentation/pages/comment/edit_replay/edit_replay_page.dart';
+import 'package:instagram_app/features/post/presentation/pages/post/post_detail/post_detail_page.dart';
 import 'package:instagram_app/features/post/presentation/pages/post/update_post/update_post_page.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/pages/sign_in/sign_in_page.dart';
@@ -49,6 +50,18 @@ class OnGenerateRoute {
             return routeBuilder(
               CommentPage(
                 appEntity: args,
+              ),
+            );
+          } else {
+            return routeBuilder(const NoPageFound());
+          }
+        }
+      case PageConst.postDetailPage:
+        {
+          if (args is String) {
+            return routeBuilder(
+              PostDetailPage(
+                postId: args,
               ),
             );
           } else {

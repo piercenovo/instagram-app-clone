@@ -6,7 +6,6 @@ import 'package:instagram_app/core/entities/app_entity.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/helpers/profile_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
-import 'package:instagram_app/core/utils/constants/firebase.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/features/post/domain/entities/comment_entity.dart';
@@ -43,7 +42,7 @@ class _CommentMainWidgetState extends State<CommentMainWidget> {
       postId: widget.appEntity.postId!,
     );
     BlocProvider.of<GetSinglePostCubit>(context).getSinglePost(
-      uid: widget.appEntity.postId!,
+      postId: widget.appEntity.postId!,
     );
     super.initState();
   }
@@ -142,13 +141,10 @@ class _CommentMainWidgetState extends State<CommentMainWidget> {
                                         currentUser: singleUser,
                                         comment: singleComment,
                                         onLongPressListener: () {
-                                          singleComment.creatorUid ==
-                                                  singlePost.creatorUid
-                                              ? _openBottomModalSheet(
-                                                  context: context,
-                                                  comment: singleComment,
-                                                )
-                                              : toast('No options available');
+                                          _openBottomModalSheet(
+                                            context: context,
+                                            comment: singleComment,
+                                          );
                                         },
                                         onLikeClickListener: () {
                                           _likeComment(comment: singleComment);

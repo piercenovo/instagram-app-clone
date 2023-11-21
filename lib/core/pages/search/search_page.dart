@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_app/core/utils/constants/colors.dart';
-import 'package:instagram_app/core/utils/constants/sizes.dart';
-import 'package:instagram_app/core/pages/search/widgets/search_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_app/core/injection/injection_container.dart' as di;
+import 'package:instagram_app/core/pages/search/widgets/search_main_widget.dart';
+import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -21,42 +22,9 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: tBackGroundColor,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
-            children: [
-              SearchWidget(controller: _searchController),
-              sizeVer(10),
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 32,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 100,
-                        height: 100,
-                        color: tSecondaryColor,
-                      );
-                    },
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+    return BlocProvider<PostCubit>(
+      create: (context) => di.sl<PostCubit>(),
+      child: const SearchMainWidget(),
     );
   }
 }

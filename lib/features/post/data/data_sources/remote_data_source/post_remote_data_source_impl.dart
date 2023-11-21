@@ -51,7 +51,7 @@ class PostRemoteDataSourceImpl implements PostRemoteDataSource {
           userCollection.get().then((value) {
             if (value.exists) {
               final totalPosts = value.get('totalPosts');
-              userCollection.update({"totalPosts": totalPosts + 1});
+              userCollection.update({'totalPosts': totalPosts + 1});
               return;
             }
           });
@@ -76,13 +76,13 @@ class PostRemoteDataSourceImpl implements PostRemoteDataSource {
         userCollection.get().then((value) {
           if (value.exists) {
             final totalPosts = value.get('totalPosts');
-            userCollection.update({"totalPosts": totalPosts - 1});
+            userCollection.update({'totalPosts': totalPosts - 1});
             return;
           }
         });
       });
     } catch (e) {
-      toast('Some error occurred');
+      print("some error occured $e");
     }
   }
 

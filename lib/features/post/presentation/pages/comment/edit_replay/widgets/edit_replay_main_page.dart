@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:instagram_app/core/helpers/navigator.dart';
 import 'package:instagram_app/core/pages/profile/widgets/profile_form_widget.dart';
 import 'package:instagram_app/core/utils/constants/colors.dart';
@@ -36,7 +37,16 @@ class _EditReplayMainWidgetState extends State<EditReplayMainWidget> {
       backgroundColor: tBackGroundColor,
       appBar: AppBar(
         backgroundColor: tBackGroundColor,
-        title: const Text('Edit Replay'),
+        title: const Text(
+          'Edit Replay',
+          style: TextStyle(color: tPrimaryColor),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            popBack(context);
+          },
+          icon: const Icon(Boxicons.bx_arrow_back, color: tPrimaryColor),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),

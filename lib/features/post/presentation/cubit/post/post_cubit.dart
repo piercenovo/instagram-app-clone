@@ -45,6 +45,7 @@ class PostCubit extends Cubit<PostState> {
   Future<void> likePost({required PostEntity post}) async {
     try {
       await likePostUseCase.call(post);
+      toast('Post Liked');
     } on SocketException catch (_) {
       emit(PostFailure());
     } catch (_) {
@@ -77,6 +78,7 @@ class PostCubit extends Cubit<PostState> {
   Future<void> deletePost({required PostEntity post}) async {
     try {
       await deletePostUseCase.call(post);
+      toast('Post Deleted');
     } on SocketException catch (_) {
       emit(PostFailure());
     } catch (_) {

@@ -40,7 +40,9 @@ class _SingleReplayWidgetState extends State<SingleReplayWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onLongPress: widget.onLongPressListener,
+      onLongPress: widget.replay.creatorUid == _currentUid
+          ? widget.onLongPressListener
+          : null,
       child: Container(
         margin: const EdgeInsets.only(left: 10.0, top: 10.0),
         child: Row(

@@ -14,10 +14,10 @@ class GetSinglePostCubit extends Cubit<GetSinglePostState> {
     required this.readSinglePostUseCase,
   }) : super(GetSinglePostInitial());
 
-  Future<void> getSinglePost({required String uid}) async {
+  Future<void> getSinglePost({required String postId}) async {
     emit(GetSinglePostLoading());
     try {
-      final streamResponse = readSinglePostUseCase.call(uid);
+      final streamResponse = readSinglePostUseCase.call(postId);
       streamResponse.listen((posts) {
         emit(GetSinglePostLoaded(post: posts.first));
       });

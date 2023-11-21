@@ -9,6 +9,10 @@ import 'package:instagram_app/features/user/presentation/injection/user_injectio
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  await userInjectionContainer();
+
+  await postInjectionContainer();
+
   // Cloud Storage
   sl.registerLazySingleton<UploadImageToStorageUseCase>(
       () => UploadImageToStorageUseCase(repository: sl.call()));
@@ -21,8 +25,4 @@ Future<void> init() async {
   sl.registerLazySingleton(() => fireStore);
   sl.registerLazySingleton(() => auth);
   sl.registerLazySingleton(() => storage);
-
-  await userInjectionContainer();
-
-  await postInjectionContainer();
 }
