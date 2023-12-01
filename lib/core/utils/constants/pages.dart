@@ -9,4 +9,6 @@ class PageConst {
   static const String commentPage = 'commentPage';
   static const String updateCommentPage = 'updateCommentPage';
   static const String updateReplayPage = 'updateReplayPage';
+  static const String followingPage = 'followingPage';
+  static const String followersPage = 'followersPage';
 }

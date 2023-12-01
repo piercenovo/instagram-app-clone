@@ -10,8 +10,12 @@ import 'package:instagram_app/core/utils/strings/text_strings.dart';
 import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
 import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
+import 'package:instagram_app/features/user/domain/usecases/credential/get_current_uid_usecase.dart';
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
-import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
+import 'package:instagram_app/features/user/presentation/cubit/get_single_other_user/get_single_other_user_cubit.dart';
+import 'package:instagram_app/features/user/presentation/cubit/user/user_cubit.dart';
+import 'package:instagram_app/features/user/presentation/widgets/button_container_widget.dart';
+import 'package:instagram_app/core/injection/injection_container.dart' as di;
 
 class SingleUserProfileMainWidget extends StatefulWidget {
   final String otherUserId;
@@ -28,22 +32,30 @@ class SingleUserProfileMainWidget extends StatefulWidget {
 
 class _SingleUserProfileMainWidgetState
     extends State<SingleUserProfileMainWidget> {
+  String _currentUid = "";
+
   @override
   void initState() {
-    BlocProvider.of<GetSingleUserCubit>(context)
-        .getSingleUser(uid: widget.otherUserId);
+    BlocProvider.of<GetSingleOtherUserCubit>(context)
+        .getSingleOtherUser(otherUid: widget.otherUserId);
 
     BlocProvider.of<PostCubit>(context).getPosts(post: const PostEntity());
+
+    di.sl<GetCurrentUidUseCase>().call().then((value) {
+      setState(() {
+        _currentUid = value;
+      });
+    });
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetSingleUserCubit, GetSingleUserState>(
+    return BlocBuilder<GetSingleOtherUserCubit, GetSingleOtherUserState>(
       builder: (context, userState) {
-        if (userState is GetSingleUserLoaded) {
-          final singleUser = userState.user;
+        if (userState is GetSingleOtherUserLoaded) {
+          final singleUser = userState.otherUser;
           return Scaffold(
             backgroundColor: tBackGroundColor,
             appBar: AppBar(
@@ -53,15 +65,18 @@ class _SingleUserProfileMainWidgetState
                 style: const TextStyle(color: tPrimaryColor),
               ),
               actions: [
-                IconButton(
-                  onPressed: () {
-                    _openBottomModalSheet(
-                      context: context,
-                      currentUser: singleUser,
-                    );
-                  },
-                  icon: const Icon(Boxicons.bx_menu, color: tPrimaryColor),
-                ),
+                _currentUid == singleUser.uid
+                    ? IconButton(
+                        onPressed: () {
+                          _openBottomModalSheet(
+                            context: context,
+                            currentUser: singleUser,
+                          );
+                        },
+                        icon:
+                            const Icon(Boxicons.bx_menu, color: tPrimaryColor),
+                      )
+                    : Container(),
               ],
             ),
             body: Padding(
@@ -102,36 +117,56 @@ class _SingleUserProfileMainWidgetState
                               ],
                             ),
                             sizeHor(25),
-                            Column(
-                              children: [
-                                Text(
-                                  '${singleUser.totalFollowers}',
-                                  style: const TextStyle(
-                                      color: tPrimaryColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                sizeVer(8),
-                                const Text(
-                                  'Followers',
-                                  style: TextStyle(color: tPrimaryColor),
-                                ),
-                              ],
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                pushNamedToPage(
+                                  context,
+                                  PageConst.followersPage,
+                                  arguments: singleUser,
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${singleUser.totalFollowers}',
+                                    style: const TextStyle(
+                                        color: tPrimaryColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  sizeVer(8),
+                                  const Text(
+                                    'Followers',
+                                    style: TextStyle(color: tPrimaryColor),
+                                  ),
+                                ],
+                              ),
                             ),
                             sizeHor(25),
-                            Column(
-                              children: [
-                                Text(
-                                  '${singleUser.totalFollowing}',
-                                  style: const TextStyle(
-                                      color: tPrimaryColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                sizeVer(8),
-                                const Text(
-                                  'Following',
-                                  style: TextStyle(color: tPrimaryColor),
-                                ),
-                              ],
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                pushNamedToPage(
+                                  context,
+                                  PageConst.followingPage,
+                                  arguments: singleUser,
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${singleUser.totalFollowing}',
+                                    style: const TextStyle(
+                                        color: tPrimaryColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  sizeVer(8),
+                                  const Text(
+                                    'Following',
+                                    style: TextStyle(color: tPrimaryColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         )
@@ -149,6 +184,26 @@ class _SingleUserProfileMainWidgetState
                       style: const TextStyle(color: tPrimaryColor),
                     ),
                     sizeVer(10),
+                    _currentUid == singleUser.uid
+                        ? Container()
+                        : ButtonContainerWidget(
+                            text: singleUser.followers!.contains(_currentUid)
+                                ? 'UnFollow'
+                                : 'Follow',
+                            color: singleUser.followers!.contains(_currentUid)
+                                ? tSecondaryColor.withOpacity(.4)
+                                : tBlueColor,
+                            onTapListener: () {
+                              BlocProvider.of<UserCubit>(context)
+                                  .followUnFollowUser(
+                                user: UserEntity(
+                                  uid: _currentUid,
+                                  otherUid: widget.otherUserId,
+                                ),
+                              );
+                            },
+                          ),
+                    _currentUid == singleUser.uid ? Container() : sizeVer(10),
                     BlocBuilder<PostCubit, PostState>(
                       builder: (context, postState) {
                         if (postState is PostLoaded) {

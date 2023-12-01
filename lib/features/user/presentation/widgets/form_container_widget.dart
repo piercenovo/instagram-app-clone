@@ -44,31 +44,35 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         color: tSecondaryColor.withOpacity(0.35),
         borderRadius: BorderRadius.circular(3),
       ),
-      child: TextFormField(
-        key: widget.fieldKey,
-        style: const TextStyle(color: tPrimaryColor),
-        controller: widget.controller,
-        keyboardType: widget.inputType,
-        textInputAction: widget.inputAction,
-        obscureText: widget.isPasswordField == true ? _obscureText : false,
-        onSaved: widget.onSaved,
-        validator: widget.validator,
-        onFieldSubmitted: widget.onFiledSubmitted,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          filled: true,
-          hintText: widget.hintText,
-          hintStyle: const TextStyle(color: tSecondaryColor),
-          suffixIcon: GestureDetector(
-            onTap: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
-            },
-            child: widget.isPasswordField == true
-                ? Icon(_obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: _obscureText == false ? tBlueColor : tSecondaryColor)
-                : const Text(''),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: TextFormField(
+          key: widget.fieldKey,
+          style: const TextStyle(color: tPrimaryColor),
+          controller: widget.controller,
+          keyboardType: widget.inputType,
+          textInputAction: widget.inputAction,
+          obscureText: widget.isPasswordField == true ? _obscureText : false,
+          onSaved: widget.onSaved,
+          validator: widget.validator,
+          onFieldSubmitted: widget.onFiledSubmitted,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            // filled: true,
+            hintText: widget.hintText,
+            hintStyle: const TextStyle(color: tSecondaryColor),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+              child: widget.isPasswordField == true
+                  ? Icon(_obscureText ? Icons.visibility_off : Icons.visibility,
+                      color:
+                          _obscureText == false ? tBlueColor : tSecondaryColor)
+                  : const Text(''),
+            ),
           ),
         ),
       ),

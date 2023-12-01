@@ -151,13 +151,16 @@ class _SingleCommentWidgetState extends State<SingleCommentWidget> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              _isViewReplays = true;
+                              _isViewReplays = !_isViewReplays;
                             });
-                            BlocProvider.of<ReplayCubit>(context).getReplays(
-                                replay: ReplayEntity(
-                              postId: widget.comment.postId,
-                              commentId: widget.comment.commentId,
-                            ));
+                            _isViewReplays
+                                ? BlocProvider.of<ReplayCubit>(context)
+                                    .getReplays(
+                                        replay: ReplayEntity(
+                                    postId: widget.comment.postId,
+                                    commentId: widget.comment.commentId,
+                                  ))
+                                : null;
                           },
                           child: const Text(
                             'View Replays',
@@ -320,26 +323,6 @@ class _SingleCommentWidgetState extends State<SingleCommentWidget> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Boxicons.bx_message_alt_x,
-                            color: tPrimaryColor, size: 20),
-                        sizeHor(10),
-                        const Text(
-                          'Delete replay',
-                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      popBack(context);
-                      _deleteReplay(replay: replay);
-                    },
-                  ),
-                  ListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
                         const Icon(Boxicons.bx_message_detail,
                             color: tPrimaryColor, size: 20),
                         sizeHor(10),
@@ -356,6 +339,26 @@ class _SingleCommentWidgetState extends State<SingleCommentWidget> {
                         PageConst.updateReplayPage,
                         arguments: replay,
                       );
+                    },
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_message_alt_x,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Delete replay',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      popBack(context);
+                      _deleteReplay(replay: replay);
                     },
                   ),
                 ],

@@ -102,6 +102,7 @@ class _SingleReplayWidgetState extends State<SingleReplayWidget> {
                           .format(widget.replay.createAt!.toDate()),
                       style: const TextStyle(
                         color: tDarkGreyColor,
+                        fontSize: 12,
                       ),
                     ),
                   ],

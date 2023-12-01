@@ -72,6 +72,7 @@ class _SearchMainWidgetState extends State<SearchMainWidget> {
                                 itemCount: filterAllUsers.length,
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
                                     onTap: () {
                                       pushNamedToPage(
                                         context,

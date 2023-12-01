@@ -45,6 +45,11 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   bool _isLikeAnimating = false;
 
   @override
@@ -81,26 +86,36 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: profileWidget(
-                                imageUrl: '${singlePost.userProfileUrl}',
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          pushNamedToPage(
+                            context,
+                            PageConst.singleUserProfilePage,
+                            arguments: singlePost.creatorUid,
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: profileWidget(
+                                  imageUrl: '${singlePost.userProfileUrl}',
+                                ),
                               ),
                             ),
-                          ),
-                          sizeHor(10),
-                          Text(
-                            '${singlePost.username}',
-                            style: const TextStyle(
-                                color: tPrimaryColor,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
+                            sizeHor(10),
+                            Text(
+                              '${singlePost.username}',
+                              style: const TextStyle(
+                                  color: tPrimaryColor,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
                       singlePost.creatorUid == _currentUid
                           ? GestureDetector(
@@ -224,7 +239,7 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
                     ],
                   ),
                 ),
-                sizeVer(5.0),
+                sizeVer(6.0),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Column(
@@ -246,11 +261,14 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
                           style: const TextStyle(color: tDarkGreyColor),
                         ),
                       ),
-                      sizeVer(8.0),
+                      sizeVer(6.0),
                       Text(
                         DateFormat('dd/MMM/yyy')
                             .format(singlePost.createAt!.toDate()),
-                        style: const TextStyle(color: tDarkGreyColor),
+                        style: const TextStyle(
+                          color: tDarkGreyColor,
+                          fontSize: 12,
+                        ),
                       ),
                     ],
                   ),
@@ -307,26 +325,6 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Boxicons.bx_message_alt_x,
-                            color: tPrimaryColor, size: 20),
-                        sizeHor(10),
-                        const Text(
-                          'Delete post',
-                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      popBack(context);
-                      _deletePost();
-                    },
-                  ),
-                  ListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
                         const Icon(Boxicons.bx_message_detail,
                             color: tPrimaryColor, size: 20),
                         sizeHor(10),
@@ -343,6 +341,26 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
                         PageConst.updatePostPage,
                         arguments: post,
                       );
+                    },
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_message_alt_x,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Delete post',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      popBack(context);
+                      _deletePost();
                     },
                   ),
                 ],

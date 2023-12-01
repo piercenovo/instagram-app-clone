@@ -8,11 +8,14 @@ import 'package:instagram_app/features/user/domain/usecases/credential/sign_in_u
 import 'package:instagram_app/features/user/domain/usecases/credential/sign_out_user_usecase.dart';
 import 'package:instagram_app/features/user/domain/usecases/credential/sign_up_user_usecase.dart';
 import 'package:instagram_app/features/user/domain/usecases/user/create_user_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/user/follow_unfollow_usecase.dart';
+import 'package:instagram_app/features/user/domain/usecases/user/get_single_other_user_usecase.dart';
 import 'package:instagram_app/features/user/domain/usecases/user/get_single_user_usecase.dart';
 import 'package:instagram_app/features/user/domain/usecases/user/get_users_usecase.dart';
 import 'package:instagram_app/features/user/domain/usecases/user/update_user_usecase.dart';
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/credential/credential_cubit.dart';
+import 'package:instagram_app/features/user/presentation/cubit/get_single_other_user/get_single_other_user_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/get_single_user/get_single_user_cubit.dart';
 import 'package:instagram_app/features/user/presentation/cubit/user/user_cubit.dart';
 import 'package:instagram_app/core/injection/injection_container.dart';
@@ -39,12 +42,19 @@ Future<void> userInjectionContainer() async {
     () => UserCubit(
       updateUserUseCase: sl.call(),
       getUsersUseCase: sl.call(),
+      followUnfollowUseCase: sl.call(),
     ),
   );
 
   sl.registerFactory<GetSingleUserCubit>(
     () => GetSingleUserCubit(
       getSingleUserUseCase: sl.call(),
+    ),
+  );
+
+  sl.registerFactory<GetSingleOtherUserCubit>(
+    () => GetSingleOtherUserCubit(
+      getSingleOtherUserUseCase: sl.call(),
     ),
   );
 
@@ -64,10 +74,14 @@ Future<void> userInjectionContainer() async {
       () => UpdateUserUseCase(repository: sl.call()));
   sl.registerLazySingleton<GetUsersUseCase>(
       () => GetUsersUseCase(repository: sl.call()));
+  sl.registerLazySingleton<GetSingleOtherUserUseCase>(
+      () => GetSingleOtherUserUseCase(repository: sl.call()));
   sl.registerLazySingleton<CreateUserUseCase>(
       () => CreateUserUseCase(repository: sl.call()));
   sl.registerLazySingleton<GetSingleUserUseCase>(
       () => GetSingleUserUseCase(repository: sl.call()));
+  sl.registerLazySingleton<FollowUnFollowUseCase>(
+      () => FollowUnFollowUseCase(repository: sl.call()));
 
   // * REPOSITORY & DATA SOURCES INJECTION
 

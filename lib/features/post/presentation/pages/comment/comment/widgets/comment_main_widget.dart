@@ -279,29 +279,6 @@ class _CommentMainWidgetState extends State<CommentMainWidget> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Boxicons.bx_message_alt_x,
-                            color: tPrimaryColor, size: 20),
-                        sizeHor(10),
-                        const Text(
-                          'Delete comment',
-                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      popBack(context);
-                      _deleteComment(
-                        commentId: comment.commentId!,
-                        postId: comment.postId!,
-                      );
-                    },
-                  ),
-                  ListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
                         const Icon(Boxicons.bx_message_detail,
                             color: tPrimaryColor, size: 20),
                         sizeHor(10),
@@ -317,6 +294,29 @@ class _CommentMainWidgetState extends State<CommentMainWidget> {
                         context,
                         PageConst.updateCommentPage,
                         arguments: comment,
+                      );
+                    },
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_message_alt_x,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Delete comment',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      popBack(context);
+                      _deleteComment(
+                        commentId: comment.commentId!,
+                        postId: comment.postId!,
                       );
                     },
                   ),

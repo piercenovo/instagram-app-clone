@@ -1,12 +1,12 @@
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/domain/repositories/user_repository.dart';
 
-class GetSingleUserUseCase {
+class FollowUnFollowUseCase {
   final UserRepository repository;
 
-  GetSingleUserUseCase({required this.repository});
+  FollowUnFollowUseCase({required this.repository});
 
-  Stream<List<UserEntity>> call(String uid) {
-    return repository.getSingleUser(uid);
+  Future<void> call(UserEntity user) {
+    return repository.followUnFollowUser(user);
   }
 }

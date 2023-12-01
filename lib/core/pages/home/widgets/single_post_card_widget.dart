@@ -208,7 +208,7 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
               ],
             ),
           ),
-          sizeVer(5.0),
+          sizeVer(6.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
@@ -230,11 +230,14 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                     style: const TextStyle(color: tDarkGreyColor),
                   ),
                 ),
-                sizeVer(8.0),
+                sizeVer(6.0),
                 Text(
                   DateFormat('dd/MMM/yyy')
                       .format(widget.post.createAt!.toDate()),
-                  style: const TextStyle(color: tDarkGreyColor),
+                  style: const TextStyle(
+                    color: tDarkGreyColor,
+                    fontSize: 12,
+                  ),
                 ),
               ],
             ),
@@ -285,26 +288,6 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Boxicons.bx_message_alt_x,
-                            color: tPrimaryColor, size: 20),
-                        sizeHor(10),
-                        const Text(
-                          'Delete post',
-                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      popBack(context);
-                      _deletePost();
-                    },
-                  ),
-                  ListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
                         const Icon(Boxicons.bx_message_detail,
                             color: tPrimaryColor, size: 20),
                         sizeHor(10),
@@ -321,6 +304,26 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
                         PageConst.updatePostPage,
                         arguments: post,
                       );
+                    },
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Boxicons.bx_message_alt_x,
+                            color: tPrimaryColor, size: 20),
+                        sizeHor(10),
+                        const Text(
+                          'Delete post',
+                          style: TextStyle(color: tPrimaryColor, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      popBack(context);
+                      _deletePost();
                     },
                   ),
                 ],

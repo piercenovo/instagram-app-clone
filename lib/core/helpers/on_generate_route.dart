@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/core/entities/app_entity.dart';
 import 'package:instagram_app/core/pages/no_page_found/no_page_found.dart';
+import 'package:instagram_app/core/pages/profile/followers_page.dart';
+import 'package:instagram_app/core/pages/profile/following_page.dart';
 import 'package:instagram_app/core/pages/profile/single_user_profle_pape.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/features/post/domain/entities/comment_entity.dart';
@@ -75,6 +77,30 @@ class OnGenerateRoute {
             return routeBuilder(
               SingleUserProfilePage(
                 otherUserId: args,
+              ),
+            );
+          } else {
+            return routeBuilder(const NoPageFound());
+          }
+        }
+      case PageConst.followingPage:
+        {
+          if (args is UserEntity) {
+            return routeBuilder(
+              FollowingPage(
+                user: args,
+              ),
+            );
+          } else {
+            return routeBuilder(const NoPageFound());
+          }
+        }
+      case PageConst.followersPage:
+        {
+          if (args is UserEntity) {
+            return routeBuilder(
+              FollowersPage(
+                user: args,
               ),
             );
           } else {
