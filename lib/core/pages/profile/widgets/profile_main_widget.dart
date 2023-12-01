@@ -7,10 +7,12 @@ import 'package:instagram_app/core/utils/constants/colors.dart';
 import 'package:instagram_app/core/utils/constants/pages.dart';
 import 'package:instagram_app/core/utils/constants/sizes.dart';
 import 'package:instagram_app/core/utils/strings/text_strings.dart';
+import 'package:instagram_app/features/post/domain/entities/post_entity.dart';
+import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
 import 'package:instagram_app/features/user/domain/entities/user_entity.dart';
 import 'package:instagram_app/features/user/presentation/cubit/auth/auth_cubit.dart';
 
-class ProfileMainWidget extends StatelessWidget {
+class ProfileMainWidget extends StatefulWidget {
   final UserEntity currentUser;
 
   const ProfileMainWidget({
@@ -19,13 +21,24 @@ class ProfileMainWidget extends StatelessWidget {
   });
 
   @override
+  State<ProfileMainWidget> createState() => _ProfileMainWidgetState();
+}
+
+class _ProfileMainWidgetState extends State<ProfileMainWidget> {
+  @override
+  void initState() {
+    BlocProvider.of<PostCubit>(context).getPosts(post: const PostEntity());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: tBackGroundColor,
       appBar: AppBar(
         backgroundColor: tBackGroundColor,
         title: Text(
-          '${currentUser.username}',
+          '${widget.currentUser.username}',
           style: const TextStyle(color: tPrimaryColor),
         ),
         actions: [
@@ -53,7 +66,7 @@ class ProfileMainWidget extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: profileWidget(
-                        imageUrl: currentUser.profileUrl,
+                        imageUrl: widget.currentUser.profileUrl,
                       ),
                     ),
                   ),
@@ -62,7 +75,7 @@ class ProfileMainWidget extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            '${currentUser.totalPosts}',
+                            '${widget.currentUser.totalPosts}',
                             style: const TextStyle(
                                 color: tPrimaryColor,
                                 fontWeight: FontWeight.bold),
@@ -78,7 +91,7 @@ class ProfileMainWidget extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            '${currentUser.totalFollowers}',
+                            '${widget.currentUser.totalFollowers}',
                             style: const TextStyle(
                                 color: tPrimaryColor,
                                 fontWeight: FontWeight.bold),
@@ -94,7 +107,7 @@ class ProfileMainWidget extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            '${currentUser.totalFollowing}',
+                            '${widget.currentUser.totalFollowing}',
                             style: const TextStyle(
                                 color: tPrimaryColor,
                                 fontWeight: FontWeight.bold),
@@ -112,30 +125,53 @@ class ProfileMainWidget extends StatelessWidget {
               ),
               sizeVer(10),
               Text(
-                '${currentUser.name == tEmptyString ? currentUser.username : currentUser.name}',
+                '${widget.currentUser.name == tEmptyString ? widget.currentUser.username : widget.currentUser.name}',
                 style: const TextStyle(
                     color: tPrimaryColor, fontWeight: FontWeight.bold),
               ),
               sizeVer(5),
               Text(
-                '${currentUser.bio}',
+                '${widget.currentUser.bio}',
                 style: const TextStyle(color: tPrimaryColor),
               ),
               sizeVer(10),
-              GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                ),
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 32,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 100,
-                    height: 100,
-                    color: tSecondaryColor,
+              BlocBuilder<PostCubit, PostState>(
+                builder: (context, postState) {
+                  if (postState is PostLoaded) {
+                    final posts = postState.posts
+                        .where(
+                          (post) => post.creatorUid == widget.currentUser.uid,
+                        )
+                        .toList();
+
+                    return GridView.builder(
+                      itemCount: posts.length,
+                      shrinkWrap: true,
+                      physics: const ScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            pushNamedToPage(context, PageConst.postDetailPage,
+                                arguments: posts[index].postId);
+                          },
+                          child: SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: profileWidget(
+                                imageUrl: posts[index].postImageUrl),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
                 },
               )
@@ -221,7 +257,7 @@ class ProfileMainWidget extends StatelessWidget {
                       pushNamedToPage(
                         context,
                         PageConst.editProfilePage,
-                        arguments: currentUser,
+                        arguments: widget.currentUser,
                       );
                     },
                   ),

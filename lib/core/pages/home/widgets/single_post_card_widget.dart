@@ -56,25 +56,35 @@ class _SinglePostCardWidgetState extends State<SinglePostCardWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: profileWidget(
-                          imageUrl: '${widget.post.userProfileUrl}',
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    pushNamedToPage(
+                      context,
+                      PageConst.singleUserProfilePage,
+                      arguments: widget.post.creatorUid,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: profileWidget(
+                            imageUrl: '${widget.post.userProfileUrl}',
+                          ),
                         ),
                       ),
-                    ),
-                    sizeHor(10),
-                    Text(
-                      '${widget.post.username}',
-                      style: const TextStyle(
-                          color: tPrimaryColor, fontWeight: FontWeight.bold),
-                    )
-                  ],
+                      sizeHor(10),
+                      Text(
+                        '${widget.post.username}',
+                        style: const TextStyle(
+                            color: tPrimaryColor, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
                 widget.post.creatorUid == _currentUid
                     ? GestureDetector(

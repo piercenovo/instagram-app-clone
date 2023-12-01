@@ -152,13 +152,6 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
                   ),
                 ),
                 sizeVer(10.0),
-                ElevatedButton(
-                  onPressed: () {
-                    print(singlePost.likes!.contains(_currentUid));
-                  },
-                  child: const Text('asdasd'),
-                ),
-                sizeVer(10.0),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
@@ -344,7 +337,7 @@ class _PostDetailMainWidgetState extends State<PostDetailMainWidget> {
                       ],
                     ),
                     onTap: () {
-                      // popBack(context);
+                      popBack(context);
                       pushNamedToPage(
                         context,
                         PageConst.updatePostPage,

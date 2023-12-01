@@ -45,7 +45,6 @@ class PostCubit extends Cubit<PostState> {
   Future<void> likePost({required PostEntity post}) async {
     try {
       await likePostUseCase.call(post);
-      toast('Post Liked');
     } on SocketException catch (_) {
       emit(PostFailure());
     } catch (_) {

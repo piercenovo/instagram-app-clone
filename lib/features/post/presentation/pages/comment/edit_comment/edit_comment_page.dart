@@ -15,7 +15,7 @@ class EditCommentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<CommentCubit>(
       create: (context) => di.sl<CommentCubit>(),
       child: EditCommentMainWidget(
         comment: comment,

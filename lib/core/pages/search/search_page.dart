@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_app/core/injection/injection_container.dart' as di;
 import 'package:instagram_app/core/pages/search/widgets/search_main_widget.dart';
 import 'package:instagram_app/features/post/presentation/cubit/post/post_cubit.dart';
+import 'package:instagram_app/features/user/presentation/cubit/user/user_cubit.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -22,8 +23,15 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PostCubit>(
-      create: (context) => di.sl<PostCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PostCubit>(
+          create: (context) => di.sl<PostCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => di.sl<UserCubit>(),
+        ),
+      ],
       child: const SearchMainWidget(),
     );
   }
